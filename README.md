@@ -1,2 +1,3 @@
 # java_IS216.M22_13
 Quản lý rạp chiếu phim
+![277318516_572885233808413_4548285928613077893_n](https://user-images.githubusercontent.com/91279728/162217303-166d59f0-dd62-4644-9b84-ef514275b215.png)

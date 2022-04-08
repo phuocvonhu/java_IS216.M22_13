@@ -4,3 +4,4 @@ Quản lý rạp chiếu phim
 
 
 
+![Screenshot (38)](https://user-images.githubusercontent.com/91279728/162453307-7634d72e-e15c-463e-bf09-9dfd159cb4f8.png)

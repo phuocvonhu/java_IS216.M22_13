@@ -17,11 +17,9 @@ public class DBConnect {
     public static Connection getConnectionSqlServer(String username, String password) {
         Connection cons = null;
         try {
-<<<<<<< HEAD
-            String dbURL = "jdbc:sqlserver://localhost\\MSSQLSERVER01:1433;databaseName=quanlyrapphim";
-=======
+
             String dbURL = "jdbc:sqlserver://localhost\\MSSQLSERVER01:1433;databaseName=QLHV";
->>>>>>> main
+
             cons = DriverManager.getConnection(dbURL, username, password);
             if (cons != null) {
                 System.out.println("Connected");
@@ -36,19 +34,12 @@ public class DBConnect {
         }
         return cons;
     }
-<<<<<<< HEAD
-    public static Connection getConnectionMySql(){
-        Connection cons = null;
-        try{
-            String username = "root";
-            String password = "";
-            String url = "jdbc:mysql://localhost:3306/quanlyrapphim";
-=======
+
     public static Connection getConnectionMySql(String username, String password){
         Connection cons = null;
         try{
             String url = "jdbc:mysql://localhost:3306/QLHV";
->>>>>>> main
+
             cons = DriverManager.getConnection(url, username, password);
             if (cons != null) {
                 System.out.println("Connected");

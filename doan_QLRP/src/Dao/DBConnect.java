@@ -14,24 +14,24 @@ import java.sql.DriverManager;
         
 
 public class DBConnect {
-//    public static Connection getConnectionSqlServer(String username, String password) {
-//        Connection cons = null;
-//        try {
-//            String dbURL = "jdbc:sqlserver://localhost\\MSSQLSERVER01:1433;databaseName=quanlyrapphim";
-//            cons = DriverManager.getConnection(dbURL, username, password);
-//            if (cons != null) {
-//                System.out.println("Connected");
-//                DatabaseMetaData dm = (DatabaseMetaData) cons.getMetaData();
-//                System.out.println("Driver name: " + dm.getDriverName());
-//                System.out.println("Driver version: " + dm.getDriverVersion());
-//                System.out.println("Product name: " + dm.getDatabaseProductName());
-//                System.out.println("Product version: " + dm.getDatabaseProductVersion());
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return cons;
-//    }
+    public static Connection getConnectionSqlServer(String username, String password) {
+        Connection cons = null;
+        try {
+            String dbURL = "jdbc:sqlserver://localhost\\MSSQLSERVER01:1433;databaseName=quanlyrapphim";
+            cons = DriverManager.getConnection(dbURL, username, password);
+            if (cons != null) {
+                System.out.println("Connected");
+                DatabaseMetaData dm = (DatabaseMetaData) cons.getMetaData();
+                System.out.println("Driver name: " + dm.getDriverName());
+                System.out.println("Driver version: " + dm.getDriverVersion());
+                System.out.println("Product name: " + dm.getDatabaseProductName());
+                System.out.println("Product version: " + dm.getDatabaseProductVersion());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cons;
+    }
     public static Connection getConnectionMySql(){
         Connection cons = null;
         try{

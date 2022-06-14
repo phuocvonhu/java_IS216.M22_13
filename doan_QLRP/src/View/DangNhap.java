@@ -6,7 +6,7 @@ package View;
 
 /**
  *
- * @author Lenovo
+ * @author phuong
  */
 public class DangNhap extends javax.swing.JFrame {
 

@@ -38,7 +38,7 @@ public class DBConnect {
     public static Connection getConnectionMySql(String username, String password){
         Connection cons = null;
         try{
-            String url = "jdbc:mysql://localhost:3306/QLHV";
+            String url = "jdbc:mysql://localhost:3306/quanlyrapphim";
 
             cons = DriverManager.getConnection(url, username, password);
             if (cons != null) {

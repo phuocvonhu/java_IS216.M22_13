@@ -63,8 +63,8 @@ public class TaiKhoanDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, TaiKhoan t){
-        if(cons == null) return false;
+    public static int insert( Connection cons, TaiKhoan t){
+        if(cons == null) return -1;
         try{
             if(t.getMa_tai_khoan() == 0){
                 String sql = "insert into tai_khoan(ten_dang_nhap, mat_khau, ma_loai_tai_khoan) values(?,?,?)";
@@ -72,7 +72,7 @@ public class TaiKhoanDAO {
                 ps.setString(1, t.getTen_dang_nhap());
                 ps.setString(2, t.getMat_khau());
                 ps.setInt(3, t.getMa_loai_tai_khoan());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -82,29 +82,29 @@ public class TaiKhoanDAO {
                 ps.setString(2, t.getTen_dang_nhap());
                 ps.setString(3,t.getMat_khau());
                 ps.setInt(4, t.getMa_loai_tai_khoan());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, TaiKhoan t){
-        if(cons == null) return false;
+    public static int delete( Connection cons, TaiKhoan t){
+        if(cons == null) return -1;
         try{
             String sql = "delete from tai_khoan where ma_tai_khoan = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, t.getMa_tai_khoan());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, TaiKhoan t){
-        if(cons == null) return false;
+    public static int update( Connection cons, TaiKhoan t){
+        if(cons == null) return -1;
         try{
             String sql = "update tai_khoan set ten_dang_nhap = ?, mat_khau = ?, ma_loai_tai_khoan = ? where ma_tai_khoan = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -112,12 +112,12 @@ public class TaiKhoanDAO {
             ps.setString(2, t.getMat_khau());
             ps.setInt(3, t.getMa_loai_tai_khoan());
             ps.setInt(4, t.getMa_tai_khoan());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
 }

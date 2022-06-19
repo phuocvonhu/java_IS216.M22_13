@@ -34,15 +34,15 @@ public class NhaCungCapDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, NhaCungCap n){
-        if(cons == null) return false;
+    public static int insert( Connection cons, NhaCungCap n){
+        if(cons == null) return -1;
         try{
             if(n.getMa_ncc() == 0){
                 String sql = "insert into nha_cung_cap(ten_ncc, dia_chi) values(?,?)";
                 PreparedStatement ps = cons.prepareStatement(sql);
                 ps.setString(1, n.getTen_ncc());
                 ps.setString(2, n.getDia_chi());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -51,41 +51,41 @@ public class NhaCungCapDAO {
                 ps.setInt(1, n.getMa_ncc());
                 ps.setString(2, n.getTen_ncc());
                 ps.setString(3, n.getDia_chi());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, NhaCungCap n){
-        if(cons == null) return false;
+    public static int delete( Connection cons, NhaCungCap n){
+        if(cons == null) return -1;
         try{
             String sql = "delete from nha_cung_cap where ma_ncc = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, n.getMa_ncc());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, NhaCungCap n){
-        if(cons == null) return false;
+    public static int update( Connection cons, NhaCungCap n){
+        if(cons == null) return -1;
         try{
             String sql = "update nha_cung_cap set ten_ncc = ?, dia_chi = ? where ma_ncc = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setString(1, n.getTen_ncc());
             ps.setString(2, n.getDia_chi());
             ps.setInt(3, n.getMa_ncc());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     } 
 }

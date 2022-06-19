@@ -67,32 +67,32 @@ public class ChiTietKhuyenMaiDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, ChiTietKhuyenMai ct){
-        if(cons == null) return false;
+    public static int insert( Connection cons, ChiTietKhuyenMai ct){
+        if(cons == null) return -1;
         try{
             String sql = "insert into chi_tiet_khuyen_mai(ma_khuyen_mai, ma_hoa_don) values(?,?)";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setString(1, ct.getMa_khuyen_mai());
             ps.setString(2, ct.getMa_hoa_don());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete(Connection cons, ChiTietKhuyenMai ct ){
-        if(cons == null) return false;
+    public static int delete(Connection cons, ChiTietKhuyenMai ct ){
+        if(cons == null) return -1;
         try{
             String sql = "delete from chi_tiet_khuyen_mai where ma_khuyen_mai = ? and ma_hoa_don = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setString(1, ct.getMa_khuyen_mai());
             ps.setString(2, ct.getMa_hoa_don());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
 }

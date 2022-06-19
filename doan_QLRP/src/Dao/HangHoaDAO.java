@@ -51,8 +51,8 @@ public class HangHoaDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, HangHoa h){
-        if(cons == null) return false;
+    public static int insert( Connection cons, HangHoa h){
+        if(cons == null) return -1;
         try{
             if(h.getMa_hang_hoa() == 0){
                 String sql = "insert into hang_hoa(ten_hang_hoa, tong_so_luong, don_gia) values(?,?,?)";
@@ -60,7 +60,7 @@ public class HangHoaDAO {
                 ps.setString(1, h.getTen_hang_hoa());
                 ps.setInt(2, h.getTong_so_luong());
                 ps.setLong(3, h.getDon_gia());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -70,29 +70,29 @@ public class HangHoaDAO {
                 ps.setString(2, h.getTen_hang_hoa());
                 ps.setInt(3, h.getTong_so_luong());
                 ps.setLong(4, h.getDon_gia());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }    
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, HangHoa h){
-        if(cons == null) return false;
+    public static int delete( Connection cons, HangHoa h){
+        if(cons == null) return -1;
         try{
             String sql = "delete from hang_hoa where ma_hang_hoa = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, h.getMa_hang_hoa());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, HangHoa h){
-        if(cons == null) return false;
+    public static int update( Connection cons, HangHoa h){
+        if(cons == null) return -1;
         try{
             String sql = "update hang_hoa set ten_hang_hoa = ?, tong_so_luong = ?, don_gia = ? where ma_hang_hoa = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -100,12 +100,12 @@ public class HangHoaDAO {
             ps.setInt(2, h.getTong_so_luong());
             ps.setLong(3, h.getDon_gia());
             ps.setInt(4, h.getMa_hang_hoa());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     } 
 }

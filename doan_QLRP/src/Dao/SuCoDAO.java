@@ -66,8 +66,8 @@ public class SuCoDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, SuCo s){
-        if(cons == null) return false;
+    public static int insert( Connection cons, SuCo s){
+        if(cons == null) return -1;
         try{
             if(s.getMa_su_co() == 0){
                 String sql = "insert into su_co(ma_phong_chieu, ten_su_co, thong_tin_them) values(?,?,?)";
@@ -75,7 +75,7 @@ public class SuCoDAO {
                 ps.setInt(1, s.getMa_phong_chieu());
                 ps.setString(2, s.getTen_su_co());
                 ps.setString(3, s.getThong_tin_them());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -85,29 +85,29 @@ public class SuCoDAO {
                 ps.setInt(2, s.getMa_phong_chieu());
                 ps.setString(3, s.getTen_su_co());
                 ps.setString(4, s.getThong_tin_them());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, SuCo s){
-        if(cons == null) return false;
+    public static int delete( Connection cons, SuCo s){
+        if(cons == null) return -1;
         try{
             String sql = "delete from su_co where ma_su_co = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, s.getMa_su_co());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, SuCo s){
-        if(cons == null) return false;
+    public static int update( Connection cons, SuCo s){
+        if(cons == null) return -1;
         try{
             String sql = "update su_co set ma_phong_chieu = ?, ten_su_co = ?, thong_tin_them = ? where ma_su_co = ?";
             PreparedStatement ps = cons.prepareStatement(sql);            
@@ -115,13 +115,13 @@ public class SuCoDAO {
             ps.setString(2, s.getTen_su_co());
             ps.setString(3, s.getThong_tin_them());
             ps.setInt(4, s.getMa_su_co());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }     
 
 }

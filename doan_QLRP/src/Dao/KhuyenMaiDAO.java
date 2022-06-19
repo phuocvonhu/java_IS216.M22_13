@@ -48,8 +48,8 @@ public class KhuyenMaiDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, KhuyenMai k){
-        if(cons == null) return false;
+    public static int insert( Connection cons, KhuyenMai k){
+        if(cons == null) return -1;
         try{
             if(k.getMa_khuyen_mai() == 0){
                 String sql = "insert into khuyen_mai(noi_dung, tri_gia, dung_chung) values(?,?,?)";
@@ -57,7 +57,7 @@ public class KhuyenMaiDAO {
                 ps.setString(1, k.getNoi_dung());
                 ps.setFloat(2, k.getTri_gia());
                 ps.setBoolean(3, k.getDung_chung());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -67,29 +67,29 @@ public class KhuyenMaiDAO {
                 ps.setString(2, k.getNoi_dung());
                 ps.setFloat(3, k.getTri_gia());
                 ps.setBoolean(4, k.getDung_chung());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, KhuyenMai k){
-        if(cons == null) return false;
+    public static int delete( Connection cons, KhuyenMai k){
+        if(cons == null) return -1;
         try{
             String sql = "delete from khuyen_mai where ma_khuyen_mai = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, k.getMa_khuyen_mai());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, KhuyenMai k){
-        if(cons == null) return false;
+    public static int update( Connection cons, KhuyenMai k){
+        if(cons == null) return -1;
         try{
             String sql = "update khuyen_mai set noi_dung = ?, tri_gia = ?, dung_chung = ? where ma_khuyen_mai = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -97,12 +97,12 @@ public class KhuyenMaiDAO {
             ps.setFloat(2, k.getTri_gia());
             ps.setBoolean(3, k.getDung_chung());
             ps.setInt(4, k.getMa_khuyen_mai());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     } 
 }

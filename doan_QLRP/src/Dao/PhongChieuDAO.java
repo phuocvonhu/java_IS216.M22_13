@@ -48,8 +48,8 @@ public class PhongChieuDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, PhongChieu p){
-        if(cons == null) return false;
+    public static int insert( Connection cons, PhongChieu p){
+        if(cons == null) return -1;
         try{
             if(p.getMa_phong_chieu() == 0){
                 String sql = "insert into phong_chieu(ten_phong_chieu, loai_phong_chieu, so_luong_ghe) values(?,?,?)";
@@ -57,7 +57,7 @@ public class PhongChieuDAO {
                 ps.setString(1, p.getTen_phong_chieu());
                 ps.setString(2, p.getLoai_phong_chieu());
                 ps.setInt(3, p.getSo_luong_ghe());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -67,29 +67,29 @@ public class PhongChieuDAO {
                 ps.setString(2, p.getTen_phong_chieu());
                 ps.setString(3, p.getLoai_phong_chieu());
                 ps.setInt(4, p.getSo_luong_ghe());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, PhongChieu p){
-        if(cons == null) return false;
+    public static int delete( Connection cons, PhongChieu p){
+        if(cons == null) return -1;
         try{
             String sql = "delete from phong_chieu where ma_phong_chieu = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, p.getMa_phong_chieu());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, PhongChieu p){
-        if(cons == null) return false;
+    public static int update( Connection cons, PhongChieu p){
+        if(cons == null) return -1;
         try{
             String sql = "update phong_chieu set ten_phong_chieu = ?, loai_phong_chieu = ?, so_luong_ghe = ? where ma_phong_chieu = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -97,13 +97,13 @@ public class PhongChieuDAO {
             ps.setString(2, p.getLoai_phong_chieu());
             ps.setInt(3, p.getSo_luong_ghe());
             ps.setInt(4, p.getMa_phong_chieu());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
 
 }

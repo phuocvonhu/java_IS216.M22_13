@@ -62,8 +62,8 @@ public class KhachHangDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, KhachHang h){
-        if(cons == null) return false;
+    public static int insert( Connection cons, KhachHang h){
+        if(cons == null) return -1;
         try{
             if(h.getMa_khach_hang() == 0){
                 String sql = "insert into khach_hang(ho_ten, so_dien_thoai, email, ma_tai_khoan) values(?,?,?,?)";
@@ -72,7 +72,7 @@ public class KhachHangDAO {
                 ps.setString(2, h.getSo_dien_thoai());
                 ps.setString(3, h.getEmail());
                 ps.setInt(4, h.getMa_tai_khoan());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -83,29 +83,29 @@ public class KhachHangDAO {
                 ps.setString(3, h.getSo_dien_thoai());
                 ps.setString(4, h.getEmail());
                 ps.setInt(5, h.getMa_tai_khoan());
-                return ps.execute();              
+                return ps.executeUpdate();              
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, KhachHang h){
-        if(cons == null) return false;
+    public static int delete( Connection cons, KhachHang h){
+        if(cons == null) return -1;
         try{
             String sql = "delete from khach_hang where ma_khach_hang = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, h.getMa_khach_hang());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, KhachHang h){
-        if(cons == null) return false;
+    public static int update( Connection cons, KhachHang h){
+        if(cons == null) return -1;
         try{
             String sql = "update khach_hang set ho_ten = ?, so_dien_thoai = ?, email = ?, ma_tai_khoan  = ? where ma_khach_hang = ?";
             PreparedStatement ps = cons.prepareStatement(sql);         
@@ -114,12 +114,12 @@ public class KhachHangDAO {
             ps.setString(3, h.getEmail());
             ps.setInt(4, h.getMa_tai_khoan());
             ps.setInt(5, h.getMa_khach_hang());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     } 
 }

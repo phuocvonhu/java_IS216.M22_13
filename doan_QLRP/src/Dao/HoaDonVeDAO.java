@@ -84,8 +84,8 @@ public class HoaDonVeDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, HoaDonVe h){
-        if(cons == null) return false;
+    public static int insert( Connection cons, HoaDonVe h){
+        if(cons == null) return -1;
         try{
             if(h.getMa_ve() == 0){
                 String sql = "insert into hoa_don_ve(ma_hoa_don, ma_suat_chieu, ma_ghe, gia) values(?,?,?,?)";
@@ -94,7 +94,7 @@ public class HoaDonVeDAO {
                 ps.setInt(2, h.getMa_suat_chieu());
                 ps.setInt(3, h.getMa_ghe());
                 ps.setLong(4, h.getGia());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -105,29 +105,29 @@ public class HoaDonVeDAO {
                 ps.setInt(3, h.getMa_suat_chieu());
                 ps.setInt(4, h.getMa_ghe());
                 ps.setLong(5, h.getGia());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, HoaDonVe h){
-        if(cons == null) return false;
+    public static int delete( Connection cons, HoaDonVe h){
+        if(cons == null) return -1;
         try{
             String sql = "delete from hoa_don_ve where ma_ve = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, h.getMa_ve());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, HoaDonVe h){
-        if(cons == null) return false;
+    public static int update( Connection cons, HoaDonVe h){
+        if(cons == null) return -1;
         try{
             String sql = "update hoa_don set ma_hoa_don = ?, ma_suat_chieu = ?, ma_ghe = ?, gia = ? where ma_ve = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -136,12 +136,12 @@ public class HoaDonVeDAO {
             ps.setInt(3, h.getMa_ghe());
             ps.setLong(4, h.getGia());
             ps.setInt(5, h.getMa_ve());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }         
 }

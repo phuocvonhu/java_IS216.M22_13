@@ -88,8 +88,8 @@ public class SuatChieuDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, SuatChieu s){
-        if(cons == null) return false;
+    public static int insert( Connection cons, SuatChieu s){
+        if(cons == null) return -1;
         try{
             String sql = "insert into suat_chieu(ma_suat_chieu, ma_phong_chieu, ma_phim, gia_ve, thoi_gian) values(?,?,?,?,?)";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -98,30 +98,30 @@ public class SuatChieuDAO {
             ps.setInt(3, s.getMa_phim());
             ps.setLong(4, s.getGia_ve());
             ps.setString(5, s.getThoi_gian());
-            return ps.execute();       
+            return ps.executeUpdate();       
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, SuatChieu s){
-        if(cons == null) return false;
+    public static int delete( Connection cons, SuatChieu s){
+        if(cons == null) return -1;
         try{
             String sql = "delete from suat_chieu where ma_hoa_don = ? and ma_phong_chieu = ? and thoi_gian = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, s.getMa_suat_chieu());
             ps.setInt(2, s.getMa_phong_chieu());
             ps.setString(3, s.getThoi_gian());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, SuatChieu s){
-        if(cons == null) return false;
+    public static int update( Connection cons, SuatChieu s){
+        if(cons == null) return -1;
         try{
             String sql = "update suat_chieu set ma_phim = ?, gia_ve = ? where ma_suat_chieu = ? and ma_phong_chieu = ? and thoi_gian = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -130,12 +130,12 @@ public class SuatChieuDAO {
             ps.setInt(3, s.getMa_suat_chieu());
             ps.setInt(4, s.getMa_phong_chieu());
             ps.setString(5, s.getThoi_gian());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
 }

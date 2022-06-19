@@ -48,6 +48,20 @@ public class PhimDAO {
         }
         return null;
     }
+    public static Phim getByTenPhim(Connection cons, String ten){
+        if(cons == null) return null;
+        try{
+            String sql = "select * from phim where ten_phim = ?";
+            PreparedStatement st = cons.prepareStatement(sql);
+            st.setString(1, ten);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) return new Phim(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
     public static int insert( Connection cons, Phim p){
         if(cons == null) return -1;
         try{

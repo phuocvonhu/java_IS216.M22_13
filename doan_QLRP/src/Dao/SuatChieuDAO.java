@@ -105,14 +105,12 @@ public class SuatChieuDAO {
         }
         return -1;
     }
-    public static int delete( Connection cons, SuatChieu s){
+    public static int delete( Connection cons, int maSuatChieu){
         if(cons == null) return -1;
         try{
-            String sql = "delete from suat_chieu where ma_hoa_don = ? and ma_phong_chieu = ? and thoi_gian = ?";
+            String sql = "delete from suat_chieu where ma_suat_chieu = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
-            ps.setInt(1, s.getMa_suat_chieu());
-            ps.setInt(2, s.getMa_phong_chieu());
-            ps.setString(3, s.getThoi_gian());
+            ps.setInt(1, maSuatChieu);
             return ps.executeUpdate();            
         }
         catch(Exception ex){
@@ -137,5 +135,44 @@ public class SuatChieuDAO {
             System.out.println(ex.getMessage());
         }
         return -1;
+    }
+    
+    public static List<SuatChieu> getByMaPhimAndMaPhongChieu(Connection cons, int maPhim, int maPhongChieu){
+        if(cons == null) return null;
+        try{
+            List<SuatChieu> list = new ArrayList<SuatChieu>();
+            String sql = "select * from suat_chieu where ma_phim = ? AND ma_phong_chieu = ?";
+            PreparedStatement st = cons.prepareStatement(sql);
+            st.setInt(1, maPhim);
+            st.setInt(2, maPhongChieu);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                list.add(new SuatChieu(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getLong(4), rs.getString(5)));
+            }
+            return list;
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+
+    public static List<SuatChieu> getByThoiGian(Connection cons, String time) {
+        if(cons == null) return null;
+        try{
+            List<SuatChieu> list = new ArrayList<SuatChieu>();
+            String sql = "select * from suat_chieu where thoi_gian = ?";
+            PreparedStatement st = cons.prepareStatement(sql);
+            st.setString(1, time);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                list.add(new SuatChieu(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getLong(4), rs.getString(5)));
+            }
+            return list;
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 }

@@ -6,7 +6,7 @@ package View;
 
 /**
  *
- * @author ADMIN
+ * @author phuocvu
  */
 public class ViewThongKeDoanhThuInput extends javax.swing.JFrame {
 

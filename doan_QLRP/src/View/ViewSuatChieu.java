@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author ADMIN
+ * @author phuocvu
  */
 public class ViewSuatChieu extends javax.swing.JFrame {
     private Connection cons = null;

@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author ADMIN
+ * @author phuocvu
  */
 public class ViewThongKeDoanhThu extends javax.swing.JFrame {
     private int month;

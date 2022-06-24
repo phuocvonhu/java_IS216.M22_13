@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author ADMIN
+ * @author phuocvu
  */
 public class ViewInThongKeNCC extends javax.swing.JFrame {
 

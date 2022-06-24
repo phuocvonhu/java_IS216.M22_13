@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author ADMIN
+ * @author phuocvu
  */
 public class ViewThongKeNCC extends javax.swing.JFrame {
     private Connection cons = null;

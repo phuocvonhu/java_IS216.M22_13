@@ -6,7 +6,7 @@ package View;
 
 /**
  *
- * @author ADMIN
+ * @author phuocvu
  */
 public class ViewThongKeForm extends javax.swing.JFrame {
 

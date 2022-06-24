@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author ADMIN
+ * @author phuocvu
  */
 public class ViewInThongKeDoanhThu extends javax.swing.JFrame {
 

@@ -79,7 +79,7 @@ public class ViewPhim extends javax.swing.JFrame {
             }
             
         });
-        cons = DBConnect.getConnectionMySql("root", "");
+        cons = DBConnect.getConnectionMySql("root", "root");
         if(cons == null){
             JOptionPane.showMessageDialog(rootPane, "khong the ket noi co so du lieu");
             return;

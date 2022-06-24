@@ -367,18 +367,12 @@
             <Component class="javax.swing.JTextField" name="hot">
             </Component>
             <Component class="javax.swing.JTextField" name="makh">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="sdt">
             </Component>
             <Component class="javax.swing.JTextField" name="email">
             </Component>
             <Component class="javax.swing.JTextField" name="matk">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="Dongy">
               <Properties>

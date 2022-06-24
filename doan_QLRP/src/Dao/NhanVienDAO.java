@@ -48,8 +48,8 @@ public class NhanVienDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, NhanVien n){
-        if(cons == null) return false;
+    public static int insert( Connection cons, NhanVien n){
+        if(cons == null) return -1;
         try{
             if(n.getMa_nhan_vien() == 0){
                 String sql = "insert into nhan_vien(ho_ten, gioi_tinh, ngay_sinh, email, so_dien_thoai, ngay_bat_dau, ma_tai_khoan) values(?,?,?,?,?,?,?)";
@@ -61,7 +61,7 @@ public class NhanVienDAO {
                 ps.setString(5, n.getSo_dien_thoai());
                 ps.setString(6, n.getNgay_bat_dau());
                 ps.setInt(7, n.getMa_tai_khoan());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -75,29 +75,29 @@ public class NhanVienDAO {
                 ps.setString(6, n.getSo_dien_thoai());
                 ps.setString(7, n.getNgay_bat_dau());
                 ps.setInt(8, n.getMa_tai_khoan());   
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, NhanVien n){
-        if(cons == null) return false;
+    public static int delete( Connection cons, NhanVien n){
+        if(cons == null) return -1;
         try{
             String sql = "delete from nhan_vien where ma_nhan_vien = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, n.getMa_nhan_vien());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, NhanVien n){
-        if(cons == null) return false;
+    public static int update( Connection cons, NhanVien n){
+        if(cons == null) return -1;
         try{
             String sql = "update nhan_vien set ho_ten = ?, gioi_tinh = ?, ngay_sinh = ?, email  = ?, so_dien_thoai = ?, ngay_bat_dau = ?, ma_tai_khoan = ? where ma_nhan_vien = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -109,12 +109,12 @@ public class NhanVienDAO {
             ps.setString(6, n.getNgay_bat_dau());
             ps.setInt(7, n.getMa_tai_khoan());   
             ps.setInt(8, n.getMa_nhan_vien());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     } 
 }

@@ -48,8 +48,22 @@ public class PhimDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, Phim p){
-        if(cons == null) return false;
+    public static Phim getByTenPhim(Connection cons, String ten){
+        if(cons == null) return null;
+        try{
+            String sql = "select * from phim where ten_phim = ?";
+            PreparedStatement st = cons.prepareStatement(sql);
+            st.setString(1, ten);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) return new Phim(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getString(7));
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
+    public static int insert( Connection cons, Phim p){
+        if(cons == null) return -1;
         try{
             if(p.getMa_phim() == 0){
                 String sql = "insert into phim(ten_phim, loai_phim, tac_gia, quoc_gia, thoi_luong, nam_phat_hanh) values(?,?,?,?,?,?)";
@@ -60,7 +74,7 @@ public class PhimDAO {
                 ps.setString(4, p.getQuoc_gia());
                 ps.setInt(5, p.getThoi_luong());
                 ps.setString(6, p.getNam_phat_hanh());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -73,29 +87,29 @@ public class PhimDAO {
                 ps.setString(5, p.getQuoc_gia());
                 ps.setInt(6, p.getThoi_luong());
                 ps.setString(7, p.getNam_phat_hanh());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, Phim p){
-        if(cons == null) return false;
+    public static int delete( Connection cons, Phim p){
+        if(cons == null) return -1;
         try{
             String sql = "delete from phim where ma_phim = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, p.getMa_phim());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, Phim p){
-        if(cons == null) return false;
+    public static int update( Connection cons, Phim p){
+        if(cons == null) return -1;
         try{
             String sql = "update phim set ten_phim = ?, loai_phim = ?, tac_gia = ?, quoc_gia  = ?, thoi_luong = ?, nam_phat_hanh = ? where ma_phim = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -106,12 +120,12 @@ public class PhimDAO {
             ps.setInt(5, p.getThoi_luong());
             ps.setString(6, p.getNam_phat_hanh());
             ps.setInt(7, p.getMa_phim());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     } 
 }

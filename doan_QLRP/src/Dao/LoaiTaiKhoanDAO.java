@@ -66,14 +66,14 @@ public class LoaiTaiKhoanDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, LoaiTaiKhoan l){
-        if(cons == null) return false;
+    public static int insert( Connection cons, LoaiTaiKhoan l){
+        if(cons == null) return -1;
         try{
             if(l.getMa_loai_tai_khoan() == 0){
                 String sql = "insert into loai_tai_khoan(ten_loai) values(?)";
                 PreparedStatement ps = cons.prepareStatement(sql);
                 ps.setString(1, l.getTen_loai());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -81,40 +81,40 @@ public class LoaiTaiKhoanDAO {
                 PreparedStatement ps = cons.prepareStatement(sql);
                 ps.setInt(1, l.getMa_loai_tai_khoan());
                 ps.setString(2, l.getTen_loai());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, LoaiTaiKhoan l){
-        if(cons == null) return false;
+    public static int delete( Connection cons, LoaiTaiKhoan l){
+        if(cons == null) return -1;
         try{
             String sql = "delete from loai_tai_khoan where ma_loai_tai_khoan = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, l.getMa_loai_tai_khoan());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, LoaiTaiKhoan l){
-        if(cons == null) return false;
+    public static int update( Connection cons, LoaiTaiKhoan l){
+        if(cons == null) return -1;
         try{
             String sql = "update loai_tai_khoan set ten_loai = ? where ma_loai_tai_khoan = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setString(1, l.getTen_loai());
             ps.setInt(2, l.getMa_loai_tai_khoan());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }     
 }

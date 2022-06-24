@@ -70,49 +70,49 @@ public class HoaDonHangHoaDAO {
         }
         return null;
     }   
-    public static boolean insert( Connection cons, HoaDonHangHoa h){
-        if(cons == null) return false;
+    public static int insert( Connection cons, HoaDonHangHoa h){
+        if(cons == null) return -1;
         try{
             String sql = "insert into hoa_don_hang_hoa(ma_hoa_don, ma_hang_hoa, so_luong) values(?,?,?)";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, h.getMa_hoa_don());
             ps.setInt(2, h.getMa_hang_hoa());
             ps.setInt(3, h.getSo_luong());
-            return ps.execute();      
+            return ps.executeUpdate();      
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, HoaDonHangHoa h){
-        if(cons == null) return false;
+    public static int delete( Connection cons, HoaDonHangHoa h){
+        if(cons == null) return -1;
         try{
             String sql = "delete from hoa_don_hang_hoa where ma_hoa_don = ? and ma_hang_hoa = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, h.getMa_hoa_don());
             ps.setInt(2, h.getMa_hang_hoa());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, HoaDonHangHoa h){
-        if(cons == null) return false;
+    public static int update( Connection cons, HoaDonHangHoa h){
+        if(cons == null) return -1;
         try{
             String sql = "update hoa_don_hang_hoa set so_luong = ? where ma_hoa_don = ? and ma_hang_hoa = ?";
             PreparedStatement ps = cons.prepareStatement(sql);  
             ps.setInt(1, h.getSo_luong());
             ps.setInt(2, h.getMa_hoa_don());
             ps.setInt(3, h.getMa_hang_hoa());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     } 
 }

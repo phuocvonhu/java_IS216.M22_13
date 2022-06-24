@@ -108,8 +108,8 @@ public class GheDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, Ghe g){
-        if(cons == null) return false;
+    public static int insert( Connection cons, Ghe g){
+        if(cons == null) return -1;
         try{
             if(g.getMa_ghe() == 0){
                 String sql = "insert into ghe(ma_phong_chieu, ten_ghe, loai_ghe, tinh_trang) values(?,?,?,?)";
@@ -118,7 +118,7 @@ public class GheDAO {
                 ps.setString(2, g.getTen_ghe());
                 ps.setString(3, g.getLoai_ghe());
                 ps.setInt(4, g.getTinh_trang());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -129,29 +129,29 @@ public class GheDAO {
                 ps.setString(3, g.getTen_ghe());
                 ps.setString(4, g.getLoai_ghe());
                 ps.setInt(5, g.getTinh_trang());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, Ghe g){
-        if(cons == null) return false;
+    public static int delete( Connection cons, Ghe g){
+        if(cons == null) return -1;
         try{
             String sql = "delete from ghe where ma_ghe = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, g.getMa_ghe());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, Ghe g){
-        if(cons == null) return false;
+    public static int update( Connection cons, Ghe g){
+        if(cons == null) return -1;
         try{
             String sql = "update ghe set ma_phong_chieu = ?, ten_ghe = ?, loai_ghe = ?, tinh_trang  = ? where ma_ghe = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -160,13 +160,12 @@ public class GheDAO {
             ps.setString(3, g.getLoai_ghe());            
             ps.setInt(4, g.getTinh_trang());
             ps.setInt(5, g.getMa_ghe());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
-    } 
-    
+        return -1;
+    }    
 }

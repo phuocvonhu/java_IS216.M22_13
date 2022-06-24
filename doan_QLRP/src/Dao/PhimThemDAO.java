@@ -50,8 +50,8 @@ public class PhimThemDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, PhimThem p){
-        if(cons == null) return false;
+    public static int insert( Connection cons, PhimThem p){
+        if(cons == null) return -1;
         try{
             if(p.getMa_phim() == 0){
                 String sql = "insert into phim_them(mo_ta, anh_minh_hoa) values(?,?)";
@@ -61,7 +61,7 @@ public class PhimThemDAO {
                 ImageIO.write(p.getAnh_minh_hoa(), "png", os);
                 InputStream is = new ByteArrayInputStream(os.toByteArray());
                 ps.setBinaryStream(2, is);
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -73,29 +73,29 @@ public class PhimThemDAO {
                 ImageIO.write(p.getAnh_minh_hoa(), "png", os);
                 InputStream is = new ByteArrayInputStream(os.toByteArray());
                 ps.setBinaryStream(3, is);
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, PhimThem p){
-        if(cons == null) return false;
+    public static int delete( Connection cons, PhimThem p){
+        if(cons == null) return -1;
         try{
             String sql = "delete from phim_them where ma_phim = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, p.getMa_phim());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, PhimThem p){
-        if(cons == null) return false;
+    public static int update( Connection cons, PhimThem p){
+        if(cons == null) return -1;
         try{
             String sql = "update phim_them set mo_ta = ?, anh_minh_hoa = ? where ma_phim = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -105,12 +105,12 @@ public class PhimThemDAO {
             InputStream is = new ByteArrayInputStream(os.toByteArray());
             ps.setBinaryStream(2, is);
             ps.setLong(3, p.getMa_phim());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     } 
 }

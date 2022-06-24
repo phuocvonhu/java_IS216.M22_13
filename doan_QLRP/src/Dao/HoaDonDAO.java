@@ -84,13 +84,14 @@ public class HoaDonDAO {
         }
         return null;
     }
-    public static List<HoaDon> getByNgayHoaDon(Connection cons, int ngay){
+    public static List<HoaDon> getByNgayHoaDon(Connection cons, int nam, int thang){
         if(cons == null) return null;
         try{
             List<HoaDon> list = new ArrayList<HoaDon>();
-            String sql = "select * from hoa_don where ngay_hoa_don = ?";
+            String sql = "select * from hoa_don where YEAR(ngay_hoa_don) = ? AND MONTH(ngay_hoa_don) = ?";
             PreparedStatement st = cons.prepareStatement(sql);
-            st.setInt(1, ngay);
+            st.setString(1, String.valueOf(nam));
+            st.setString(2, String.valueOf(thang));
             ResultSet rs = st.executeQuery();
             while(rs.next()){
                 list.add(new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getLong(4), rs.getString(5)));
@@ -102,8 +103,8 @@ public class HoaDonDAO {
         }
         return null;
     }
-    public static boolean insert( Connection cons, HoaDon h){
-        if(cons == null) return false;
+    public static int insert( Connection cons, HoaDon h){
+        if(cons == null) return -1;
         try{
             if(h.getMa_hoa_don() == 0){
                 String sql = "insert into hoa_don(ma_nhan_vien, ma_khach_hang, tri_gia, ngay_hoa_don) values(?,?,?,?)";
@@ -112,7 +113,7 @@ public class HoaDonDAO {
                 ps.setInt(2, h.getMa_khach_hang());
                 ps.setLong(3, h.getTri_gia());
                 ps.setString(4, h.getNgay_hoa_don());
-                return ps.execute();            
+                return ps.executeUpdate();            
             }
             else
             {
@@ -123,29 +124,29 @@ public class HoaDonDAO {
                 ps.setInt(3, h.getMa_khach_hang());
                 ps.setLong(4, h.getTri_gia());
                 ps.setString(5, h.getNgay_hoa_don());
-                return ps.execute();      
+                return ps.executeUpdate();      
             }           
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean delete( Connection cons, HoaDon h){
-        if(cons == null) return false;
+    public static int delete( Connection cons, HoaDon h){
+        if(cons == null) return -1;
         try{
             String sql = "delete from hoa_don where ma_hoa_don = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, h.getMa_hoa_don());
-            return ps.execute();            
+            return ps.executeUpdate();            
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     }
-    public static boolean update( Connection cons, HoaDon h){
-        if(cons == null) return false;
+    public static int update( Connection cons, HoaDon h){
+        if(cons == null) return -1;
         try{
             String sql = "update hoa_don set ma_nhan_vien = ?, ma_khach_hang = ?, tri_gia = ?, ngay_hoa_don  = ? where ma_hoa_don = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -154,12 +155,12 @@ public class HoaDonDAO {
             ps.setLong(3, h.getTri_gia());
             ps.setString(4, h.getNgay_hoa_don());
             ps.setInt(5, h.getMa_hoa_don());
-            return ps.execute();          
+            return ps.executeUpdate();          
         }
         catch(Exception ex){
             
             System.out.println(ex.getMessage());
         }
-        return false;
+        return -1;
     } 
 }

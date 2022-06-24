@@ -32,7 +32,7 @@ public class ViewSuatChieu extends javax.swing.JFrame {
     
     public ViewSuatChieu() {
         initComponents();
-        cons = DBConnect.getConnectionMySql("root", "root");
+        cons = DBConnect.getConnectionMySql("root", "");
         if(cons == null){
             JOptionPane.showMessageDialog(rootPane, "khong the ket noi co so du lieu");
         }

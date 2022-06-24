@@ -27,7 +27,7 @@ public class ViewThongKeNCC extends javax.swing.JFrame {
      */
     public ViewThongKeNCC() {
         initComponents();
-        cons = DBConnect.getConnectionMySql("root", "root");
+        cons = DBConnect.getConnectionMySql("root", "");
         if(cons == null){
             JOptionPane.showMessageDialog(rootPane, "khong the ket noi co so du lieu");
         }

@@ -48,6 +48,20 @@ public class NhanVienDAO {
         }
         return null;
     }
+    public static NhanVien getBySdt(Connection cons, String sdt){
+        if(cons == null) return null;
+        try{
+            String sql = "select * from nhan_vien where so_dien_thoai = ?";
+            PreparedStatement st = cons.prepareStatement(sql);
+            st.setString(1, sdt);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) return new NhanVien(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8));
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return null;
+    }
     public static int insert( Connection cons, NhanVien n){
         if(cons == null) return -1;
         try{

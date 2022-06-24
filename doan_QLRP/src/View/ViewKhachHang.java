@@ -36,6 +36,7 @@ public class ViewKhachHang extends javax.swing.JFrame {
     List<TaiKhoan> listtk;
     TableRowSorter<TableModel> rowSorter = null;
     Connection cons = null;
+    DefaultTableModel dtm;
     public ViewKhachHang() {
         initComponents();
         
@@ -85,7 +86,7 @@ public class ViewKhachHang extends javax.swing.JFrame {
         listItem = KhachHangDAO.getAll(cons);
         listtk = TaiKhoanDAO.getAll(cons);
         String[] str = {"ma khach hang", "ho ten", "so dien thoai", "email", "ma tai khoan"};
-        DefaultTableModel dtm = ClassTableModel.setTableKhachHang(listItem, str);
+        dtm = ClassTableModel.setTableKhachHang(listItem, str);
         rowSorter = new TableRowSorter<>(dtm);
         tbl.setModel(dtm);
         tbl.setRowSorter(rowSorter);
@@ -263,6 +264,10 @@ public class ViewKhachHang extends javax.swing.JFrame {
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Ma tai khoan");
+
+        makh.setEditable(false);
+
+        matk.setEditable(false);
 
         Dongy.setText("Dong y");
         Dongy.setMaximumSize(new java.awt.Dimension(72, 35));
@@ -477,6 +482,22 @@ public class ViewKhachHang extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(rootPane, "da xoa thanh cong");
+            TaiKhoan tk = null;
+            KhachHang kh = listItem.get(tbl.getSelectedRow());
+            for(TaiKhoan j : listtk){
+                if(j.getMa_tai_khoan() == kh.getMa_tai_khoan()){
+                    tk = j;
+                    break;
+                }
+            }
+            listItem.remove(tbl.getSelectedRow());
+            if(tk != null) listtk.remove(tk);
+            dtm.removeRow(tbl.getSelectedRow());
+            makh.setText("");
+            hot.setText("");
+            sdt.setText("");
+            email.setText("");
+            matk.setText("");
         }
     }//GEN-LAST:event_XoaActionPerformed
 
@@ -511,6 +532,12 @@ public class ViewKhachHang extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(rootPane, "da sua thanh cong");
+            //{"ma khach hang", "ho ten", "so dien thoai", "email", "ma tai khoan"};
+            tbl.setValueAt(kh.getMa_khach_hang(), tbl.getSelectedRow(), 0);
+            tbl.setValueAt(kh.getHo_ten(), tbl.getSelectedRow(), 1);
+            tbl.setValueAt(kh.getSo_dien_thoai(), tbl.getSelectedRow(), 2);
+            tbl.setValueAt(kh.getEmail(), tbl.getSelectedRow(), 3);
+            tbl.setValueAt(kh.getMa_tai_khoan(), tbl.getSelectedRow(), 4);
         }
     }//GEN-LAST:event_DongyActionPerformed
 

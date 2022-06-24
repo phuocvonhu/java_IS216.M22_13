@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import View.ClassTableModel;
 import Model.*;
-import Dao.NhanVienDAO;
 import java.sql.*;
 import Dao.*;
 import java.text.SimpleDateFormat;
@@ -38,10 +37,12 @@ public class ViewNhanVien extends javax.swing.JFrame {
     List<LoaiTaiKhoan> listltk;
     TableRowSorter<TableModel> rowSorter = null;
     Connection cons = null;
-    SimpleDateFormat sdf;
+    SimpleDateFormat sdf, sdfd;
+    DefaultTableModel dtm;
     public ViewNhanVien() {
         initComponents();
         sdf = new SimpleDateFormat("yyyy/MM/dd");
+        sdfd = new SimpleDateFormat("yyyy-MM-dd");
         ImageIcon imgi = new ImageIcon("C:\\Users\\minht\\Documents\\NetBeansProjects\\doan_QLRP\\src\\resources\\home.png");
         Image img = imgi.getImage();
         Image newimg = img.getScaledInstance(home.getWidth(), home.getHeight(), java.awt.Image.SCALE_SMOOTH);
@@ -89,7 +90,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
         listtk = TaiKhoanDAO.getAll(cons);
         listltk = LoaiTaiKhoanDAO.getAll(cons);
         String[] str = {"ma nhan vien", "ten nhan vien", "gioi tinh", "ngay sinh", "email", "so dien thoai", "ngay bat dau"};
-        DefaultTableModel dtm = ClassTableModel.setTableNhanVien(listItem, str);
+        dtm = ClassTableModel.setTableNhanVien(listItem, str);
         rowSorter = new TableRowSorter<>(dtm);
         tbl.setModel(dtm);
         tbl.setRowSorter(rowSorter);
@@ -118,6 +119,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
             }
         });
         loaitk.addItem("");
+        listltk.remove(1);
         for(LoaiTaiKhoan l : listltk){
             loaitk.addItem(l.getTen_loai());
         }
@@ -585,8 +587,8 @@ public class ViewNhanVien extends javax.swing.JFrame {
         if(nv.getGioi_tinh() == "Nam") nam.setSelected(true);
         else nu.setSelected(true);
         try{
-            ngays.setDate(sdf.parse(nv.getNgay_sinh()));
-            ngayvl.setDate(sdf.parse(nv.getNgay_bat_dau()));
+            ngays.setDate(sdfd.parse(nv.getNgay_sinh()));
+            ngayvl.setDate(sdfd.parse(nv.getNgay_bat_dau()));
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(rootPane, "loi khi hien thi ngay");
@@ -596,7 +598,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
         email.setText(nv.getEmail());
         if(tk == null) return;
         matk.setText(String.valueOf(tk.getMa_tai_khoan()));
-        loaitk.setSelectedIndex(tk.getMa_loai_tai_khoan() + 1);
+        loaitk.setSelectedIndex(tk.getMa_loai_tai_khoan());
         tentk.setText(tk.getTen_dang_nhap());
         matkh.setText(tk.getMat_khau());
     }//GEN-LAST:event_tblMouseClicked
@@ -616,7 +618,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
     }//GEN-LAST:event_ResetActionPerformed
 
     private void XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XoaActionPerformed
-        if(manv.getText().equals("") == true) return;
+        if(manv.getText().equals("") == true || tbl.getSelectedRow() == -1) return;
         int i = NhanVienDAO.delete(cons, listItem.get(tbl.getSelectedRow()));
         if(i == -1){
             JOptionPane.showMessageDialog(rootPane, "loi co so du lieu");
@@ -626,6 +628,28 @@ public class ViewNhanVien extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(rootPane, "da xoa thanh cong");
+            TaiKhoan tk = null;
+            NhanVien nv = listItem.get(tbl.getSelectedRow());
+            for(TaiKhoan j : listtk){
+                if(j.getMa_tai_khoan() == nv.getMa_tai_khoan()){
+                    tk = j;
+                    break;
+                }
+            }
+            listItem.remove(tbl.getSelectedRow());
+            dtm.removeRow(tbl.getSelectedRow()); 
+            if(tk != null) listtk.remove(tk);
+            manv.setText("");
+            hot.setText("");
+            nam.setSelected(true);
+            ngays.cleanup();
+            sdt.setText("");
+            email.setText("");
+            ngayvl.cleanup();
+            matk.setText("");
+            loaitk.setSelectedIndex(0);
+            tentk.setText("");
+            matkh.setText("");
         }
     }//GEN-LAST:event_XoaActionPerformed
 
@@ -641,11 +665,11 @@ public class ViewNhanVien extends javax.swing.JFrame {
         if(ngayvl.getDate().compareTo(ngays.getDate()) <= 0) return;
         TaiKhoan tk;
         if(matk.getText().equals("") == true){
-            tk = new TaiKhoan(tentk.getText(), String.valueOf(matkh.getPassword()),loaitk.getSelectedIndex()-1 );
+            tk = new TaiKhoan(tentk.getText(), String.valueOf(matkh.getPassword()),loaitk.getSelectedIndex() );
         }
         else{
             try{
-                tk = new TaiKhoan(Integer.parseInt(matk.getText()),tentk.getText(), String.valueOf(matkh.getPassword()),loaitk.getSelectedIndex()-1 );
+                tk = new TaiKhoan(Integer.parseInt(matk.getText()),tentk.getText(), String.valueOf(matkh.getPassword()),loaitk.getSelectedIndex() );
             }
             catch(Exception ex){
                 JOptionPane.showMessageDialog(rootPane, "ma tai khoan la so");
@@ -662,6 +686,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "them nhan vien that bai. Khong lay duoc tai khoan");
             return;
         }
+        matk.setText(String.valueOf(tkh.getMa_tai_khoan()));
         NhanVien nv;
         String gt = (nam.isSelected() == true)?"Nam":"Nu";
         
@@ -671,19 +696,21 @@ public class ViewNhanVien extends javax.swing.JFrame {
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(rootPane, "ngay khong hop le");
+            TaiKhoanDAO.delete(cons, tkh);
             return;
         }
         String ns = sdf.format(ngays.getDate());
         String nvl = sdf.format(ngayvl.getDate());
         if(manv.getText().equals("")== true){
-            nv = new NhanVien(hot.getText(), gt, ns, email.getText(), sdt.getText(), nvl, tk.getMa_tai_khoan());
+            nv = new NhanVien(hot.getText(), gt, ns, email.getText(), sdt.getText(), nvl, tkh.getMa_tai_khoan());
         }
         else{
             try{
-                nv = new NhanVien(Integer.parseInt(manv.getText()),hot.getText(), gt, ns, email.getText(), sdt.getText(), nvl, tk.getMa_tai_khoan());
+                nv = new NhanVien(Integer.parseInt(manv.getText()),hot.getText(), gt, ns, email.getText(), sdt.getText(), nvl, tkh.getMa_tai_khoan());
             }
             catch(Exception ex){
                 JOptionPane.showMessageDialog(rootPane, "ma nhan vien la so");
+                TaiKhoanDAO.delete(cons, tkh);
                 return;
             }
         }
@@ -696,7 +723,15 @@ public class ViewNhanVien extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(rootPane, "da them thanh cong");
+            NhanVien nvg = NhanVienDAO.getBySdt(cons, nv.getSo_dien_thoai());
+            dtm.addRow(new Object[]{nvg.getMa_nhan_vien(), nvg.getHo_ten(), nvg.getGioi_tinh(), nvg.getNgay_sinh(), nvg.getEmail(), nvg.getSo_dien_thoai(), nvg.getNgay_bat_dau()});
+            System.out.println("preset table: " + tbl.getRowCount());
+            tbl.setModel(dtm);
+            System.out.println(tbl.getRowCount());
+            listItem.add(nvg);
+            manv.setText(String.valueOf(nvg.getMa_nhan_vien()));
         }
+        
     }//GEN-LAST:event_ThemActionPerformed
 
     private void DongyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DongyActionPerformed
@@ -740,6 +775,14 @@ public class ViewNhanVien extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(rootPane, "da sua thanh cong");
+            //{"ma nhan vien", "ten nhan vien", "gioi tinh", "ngay sinh", "email", "so dien thoai", "ngay bat dau"};
+            tbl.setValueAt(nv.getMa_nhan_vien(), tbl.getSelectedRow(), 0);
+            tbl.setValueAt(nv.getHo_ten(), tbl.getSelectedRow(), 1);
+            tbl.setValueAt(nv.getGioi_tinh(), tbl.getSelectedRow(), 2);
+            tbl.setValueAt(nv.getNgay_sinh(), tbl.getSelectedRow(), 3);
+            tbl.setValueAt(nv.getEmail(), tbl.getSelectedRow(), 4);
+            tbl.setValueAt(nv.getSo_dien_thoai(), tbl.getSelectedRow(), 5);
+            tbl.setValueAt(nv.getNgay_bat_dau(), tbl.getSelectedRow(), 6);
         }
         
         TaiKhoan tk;

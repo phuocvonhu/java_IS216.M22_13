@@ -8,7 +8,7 @@ import Dao.DBConnect;
 import Dao.HangHoaDAO;
 import Model.HangHoa;
 import Model.NhapHangHoa;
-import com.google.protobuf.Int32Value;
+//import com.google.protobuf.Int32Value;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -238,7 +238,6 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/placeholder.png"))); // NOI18N
         jLabel3.setText("Linh Trung, Thủ Đức, TPHCM");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);

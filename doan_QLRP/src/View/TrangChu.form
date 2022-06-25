@@ -255,6 +255,9 @@
                 <Property name="text" type="java.lang.String" value="KH&#xc1;CH H&#xc0;NG"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
@@ -273,6 +276,9 @@
                 <Property name="text" type="java.lang.String" value="NH&#xc2;N VI&#xca;N"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton3">
               <Properties>
@@ -330,6 +336,9 @@
                 <Property name="text" type="java.lang.String" value="H&#xc0;NG H&#xd3;A"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton6">
               <Properties>
@@ -366,6 +375,9 @@
                 <Property name="text" type="java.lang.String" value="TH&#x1ed0;NG K&#xca;"/>
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>

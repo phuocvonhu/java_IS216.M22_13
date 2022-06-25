@@ -205,7 +205,7 @@ public class ViewThongKeNCC extends javax.swing.JFrame {
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        this.viewThongKeForm.setVisible(true);
+        new ViewThongKeForm().setVisible(true);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     /**

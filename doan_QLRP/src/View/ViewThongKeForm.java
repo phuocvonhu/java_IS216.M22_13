@@ -163,6 +163,7 @@ public class ViewThongKeForm extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
         ViewThongKeNCC viewThongKeNCC = new ViewThongKeNCC();
         viewThongKeNCC.setViewThongKeForm(this);
         viewThongKeNCC.setVisible(true);
@@ -171,6 +172,7 @@ public class ViewThongKeForm extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
+        new TrangChu().setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**

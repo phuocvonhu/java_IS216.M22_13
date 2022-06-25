@@ -25,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Lenovo
  */
-public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
+public class QuanLyHangHoa_nhapHang_NV extends javax.swing.JFrame {
 
     /**
      * Creates new form QuanLyHangHoa
@@ -40,7 +40,7 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
     PreparedStatement statement = null;
     Connection con = (Connection) DBConnect.getConnectionMySql(username, password);
 
-    public QuanLyHangHoa_nhapHang() throws SQLException, ParseException {
+    public QuanLyHangHoa_nhapHang_NV() throws SQLException, ParseException {
         initComponents();
         tbm1 = (DefaultTableModel) table_nhapHang.getModel();
         date_nhap.setDateFormatString("dd/MM/yyyy");
@@ -334,21 +334,21 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addComponent(jButton1)
-                .addGap(382, 382, 382)
+                .addGap(342, 342, 342)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         table_nhapHang.setModel(new javax.swing.table.DefaultTableModel(
@@ -419,7 +419,7 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
             // TODO add your handling code here:
             reset();
         } catch (ParseException ex) {
-            Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -445,7 +445,7 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Thêm thành công!");
                     reset();
                 } catch (ParseException ex) {
-                    Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Thêm không thành công!");
@@ -477,7 +477,7 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
                     reset();
                 } catch (ParseException ex) {
-                    Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Cập nhật không thành công!");
@@ -522,7 +522,7 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
         try {
             dsHangHoa = NhapHangHoaDAO.find(con, hh);
         } catch (SQLException ex) {
-            Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(Level.SEVERE, null, ex);
         }
         tbm1.setRowCount(0);
         int flag = 0;
@@ -531,7 +531,7 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
                 tbm1.addRow(new Object[]{tbm1.getRowCount() + 1, rc.getMa_don(), rc.getMa_ncc(), rc.getTen_ncc(), rc.getMa_hang_hoa(), rc.getTen_hang_hoa(), rc.getSo_luong(), f.format(f2.parse(rc.getNgay_nhap())), rc.getDon_gia()});
                 flag =1;
             } catch (ParseException ex) {
-                Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (flag != 1) {
@@ -602,7 +602,7 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
                 txt_madon.setEditable(false);
 
             } catch (ParseException ex) {
-                Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -611,7 +611,7 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        new QuanLyHangHoa().setVisible(true);
+        new QuanLyHangHoa_NV().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void showList() throws ParseException {
@@ -674,14 +674,22 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -696,11 +704,11 @@ public class QuanLyHangHoa_nhapHang extends javax.swing.JFrame {
             @Override
             public void run() {
                 try {
-                    new QuanLyHangHoa_nhapHang().setVisible(true);
+                    new QuanLyHangHoa_nhapHang_NV().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ParseException ex) {
-                    Logger.getLogger(QuanLyHangHoa_nhapHang.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(QuanLyHangHoa_nhapHang_NV.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

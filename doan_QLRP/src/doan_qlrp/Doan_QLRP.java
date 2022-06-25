@@ -4,6 +4,8 @@
  */
 package doan_qlrp;
 
+import View.DangNhap;
+
 /**
  *
  * @author minht
@@ -15,7 +17,7 @@ public class Doan_QLRP {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-
+        new DangNhap().setVisible(true);
     }
     
 }

@@ -193,7 +193,6 @@ public class ViewThongKeNCC extends javax.swing.JFrame {
         
         ViewInThongKeNCC viewInThongKeNCC = new ViewInThongKeNCC();
         viewInThongKeNCC.inbaocao(this.hangHoaList);
-        viewInThongKeNCC.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked

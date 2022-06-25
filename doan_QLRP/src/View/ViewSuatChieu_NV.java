@@ -24,13 +24,13 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author phuocvu
  */
-public class ViewSuatChieu extends javax.swing.JFrame {
+public class ViewSuatChieu_NV extends javax.swing.JFrame {
     private Connection cons = null;
     private List<Phim> phimList;
     private List<PhongChieu> phongChieuList;
     private int maSuatChieu;
     
-    public ViewSuatChieu() {
+    public ViewSuatChieu_NV() {
         initComponents();
         cons = DBConnect.getConnectionMySql("root", "");
         if(cons == null){
@@ -100,7 +100,9 @@ public class ViewSuatChieu extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Suất chiếu");
@@ -543,7 +545,7 @@ public class ViewSuatChieu extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
-        new TrangChu().setVisible(true);
+        new TrangChu_NV().setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
@@ -563,20 +565,21 @@ public class ViewSuatChieu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewSuatChieu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewSuatChieu_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewSuatChieu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewSuatChieu_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewSuatChieu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewSuatChieu_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewSuatChieu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewSuatChieu_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewSuatChieu().setVisible(true);
+                new ViewSuatChieu_NV().setVisible(true);
             }
         });
     }

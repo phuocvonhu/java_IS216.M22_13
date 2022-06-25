@@ -43,16 +43,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
         initComponents();
         sdf = new SimpleDateFormat("yyyy/MM/dd");
         sdfd = new SimpleDateFormat("yyyy-MM-dd");
-        ImageIcon imgi = new ImageIcon("C:\\Users\\minht\\Documents\\NetBeansProjects\\doan_QLRP\\src\\resources\\home.png");
-        Image img = imgi.getImage();
-        Image newimg = img.getScaledInstance(home.getWidth(), home.getHeight(), java.awt.Image.SCALE_SMOOTH);
-        imgi = new ImageIcon(newimg);
-        home.setIcon(imgi);
-        imgi = new ImageIcon("C:\\Users\\minht\\Documents\\NetBeansProjects\\doan_QLRP\\src\\resources\\locate.png");
-        img = imgi.getImage();
-        newimg = img.getScaledInstance(jLabel14.getHeight(), jLabel14.getHeight(), java.awt.Image.SCALE_SMOOTH);
-        imgi = new ImageIcon(newimg);
-        jLabel14.setIcon(imgi);
+        
         
 //        home.addMouseListener(new MouseListener(){
 //            @Override
@@ -70,12 +61,12 @@ public class ViewNhanVien extends javax.swing.JFrame {
 //                //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
 //            }
 //
-//            @Override
+////            @Override
 ////            public void mouseEntered(MouseEvent e) {
 ////                jPanel4.setBackground(new Color(250,250,250));
 ////            }
-//
-//            @Override
+////
+////            @Override
 ////            public void mouseExited(MouseEvent e) {
 ////                jPanel4.setBackground(new Color(127,127,127));
 ////            }
@@ -118,12 +109,10 @@ public class ViewNhanVien extends javax.swing.JFrame {
             public void changedUpdate(DocumentEvent e) {
             }
         });
-        loaitk.addItem("");
-        listltk.remove(1);
         for(LoaiTaiKhoan l : listltk){
             loaitk.addItem(l.getTen_loai());
         }
-        loaitk.setSelectedIndex(0);
+        loaitk.setSelectedIndex(-1);
     }
     
     /**
@@ -139,7 +128,8 @@ public class ViewNhanVien extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        home = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -190,12 +180,11 @@ public class ViewNhanVien extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel12.setText("Nhan vien");
 
-        home.setBackground(new java.awt.Color(127, 127, 127));
-        home.setForeground(new java.awt.Color(127, 127, 127));
-        home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/home.png"))); // NOI18N
-        home.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/home.png"))); // NOI18N
+        jLabel18.setText("jLabel18");
+        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                homeMouseClicked(evt);
+                jLabel18MouseClicked(evt);
             }
         });
 
@@ -205,17 +194,21 @@ public class ViewNhanVien extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(home)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18))
                 .addContainerGap())
         );
 
@@ -586,7 +579,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
         email.setText(nv.getEmail());
         if(tk == null) return;
         matk.setText(String.valueOf(tk.getMa_tai_khoan()));
-        loaitk.setSelectedIndex(tk.getMa_loai_tai_khoan());
+        loaitk.setSelectedIndex(4-tk.getMa_loai_tai_khoan());
         tentk.setText(tk.getTen_dang_nhap());
         matkh.setText(tk.getMat_khau());
     }//GEN-LAST:event_tblMouseClicked
@@ -789,11 +782,11 @@ public class ViewNhanVien extends javax.swing.JFrame {
         else if(i == 1) JOptionPane.showMessageDialog(rootPane, "Sua tai khoan thanh cong");
     }//GEN-LAST:event_DongyActionPerformed
 
-    private void homeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeMouseClicked
+    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
         // TODO add your handling code here:
         this.setVisible(false);
         new TrangChu().setVisible(true);
-    }//GEN-LAST:event_homeMouseClicked
+    }//GEN-LAST:event_jLabel18MouseClicked
 
     /**
      * @param args the command line arguments
@@ -838,7 +831,6 @@ public class ViewNhanVien extends javax.swing.JFrame {
     private javax.swing.JButton Xoa;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField email;
-    private javax.swing.JLabel home;
     private javax.swing.JTextField hot;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -847,6 +839,8 @@ public class ViewNhanVien extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

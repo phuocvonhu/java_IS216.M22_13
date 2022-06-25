@@ -263,7 +263,7 @@ public class ViewInThongKeNCC extends javax.swing.JFrame {
             diaChiTrangTrai.setIndentationLeft(180);
             doc.add(diaChiTrangTrai);
 
-            Paragraph hotline = new Paragraph("Hotline: 086.8247.806", fNoiDung2);
+            Paragraph hotline = new Paragraph("Hotline: 086.8247.805", fNoiDung2);
             hotline.setIndentationLeft(180);
             doc.add(hotline);
 

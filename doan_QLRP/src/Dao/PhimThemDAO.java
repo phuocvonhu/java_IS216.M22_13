@@ -27,7 +27,12 @@ public class PhimThemDAO {
             Statement st = cons.prepareCall(sql);
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                list.add(new PhimThem(rs.getInt(1), rs.getString(2), ImageIO.read(rs.getBlob(3).getBinaryStream())));
+                if(rs.getBlob(3) == null){
+                    list.add(new PhimThem(rs.getInt(1), rs.getString(2), null));
+                }
+                else{
+                    list.add(new PhimThem(rs.getInt(1), rs.getString(2), ImageIO.read(rs.getBlob(3).getBinaryStream())));
+                }
             }
             return list;
         }
@@ -43,7 +48,15 @@ public class PhimThemDAO {
             PreparedStatement st = cons.prepareStatement(sql);
             st.setInt(1, ma);
             ResultSet rs = st.executeQuery();
-            if(rs.next()) return new PhimThem(rs.getInt(1), rs.getString(2), ImageIO.read(rs.getBlob(3).getBinaryStream()));
+            if(rs.next()){
+                if(rs.getBlob(3) == null){
+                    return new PhimThem(rs.getInt(1), rs.getString(2), null);
+                }
+                else{
+                    return new PhimThem(rs.getInt(1), rs.getString(2), ImageIO.read(rs.getBlob(3).getBinaryStream()));
+                }
+            }
+            return null;
         }
         catch(Exception ex){
             System.out.println(ex.getMessage());
@@ -57,9 +70,12 @@ public class PhimThemDAO {
                 String sql = "insert into phim_them(mo_ta, anh_minh_hoa) values(?,?)";
                 PreparedStatement ps = cons.prepareStatement(sql);
                 ps.setString(1, p.getMo_ta());
-                ByteArrayOutputStream os = new ByteArrayOutputStream();
-                ImageIO.write(p.getAnh_minh_hoa(), "png", os);
-                InputStream is = new ByteArrayInputStream(os.toByteArray());
+                InputStream is = null;
+                if(p.getAnh_minh_hoa() != null){
+                    ByteArrayOutputStream os = new ByteArrayOutputStream();
+                    ImageIO.write(p.getAnh_minh_hoa(), "png", os);
+                    is = new ByteArrayInputStream(os.toByteArray());
+                }
                 ps.setBinaryStream(2, is);
                 return ps.executeUpdate();            
             }
@@ -69,9 +85,12 @@ public class PhimThemDAO {
                 PreparedStatement ps = cons.prepareStatement(sql);
                 ps.setInt(1, p.getMa_phim());
                 ps.setString(2, p.getMo_ta());
-                ByteArrayOutputStream os = new ByteArrayOutputStream();
-                ImageIO.write(p.getAnh_minh_hoa(), "png", os);
-                InputStream is = new ByteArrayInputStream(os.toByteArray());
+                InputStream is = null;
+                if(p.getAnh_minh_hoa() != null){
+                    ByteArrayOutputStream os = new ByteArrayOutputStream();
+                    ImageIO.write(p.getAnh_minh_hoa(), "png", os);
+                    is = new ByteArrayInputStream(os.toByteArray());
+                }
                 ps.setBinaryStream(3, is);
                 return ps.executeUpdate();      
             }           
@@ -100,9 +119,12 @@ public class PhimThemDAO {
             String sql = "update phim_them set mo_ta = ?, anh_minh_hoa = ? where ma_phim = ?";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setString(1, p.getMo_ta());
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            ImageIO.write(p.getAnh_minh_hoa(), "png", os);
-            InputStream is = new ByteArrayInputStream(os.toByteArray());
+            InputStream is = null;
+            if(p.getAnh_minh_hoa() != null){
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                ImageIO.write(p.getAnh_minh_hoa(), "png", os);
+                is = new ByteArrayInputStream(os.toByteArray());
+            }
             ps.setBinaryStream(2, is);
             ps.setLong(3, p.getMa_phim());
             return ps.executeUpdate();          

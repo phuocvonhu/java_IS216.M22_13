@@ -71,6 +71,7 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +80,18 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
         txt_mahh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_mahhActionPerformed(evt);
+            }
+        });
+
+        txt_giahh.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_giahhKeyTyped(evt);
+            }
+        });
+
+        txt_soluonghh.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_soluonghhKeyTyped(evt);
             }
         });
 
@@ -266,12 +279,17 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton1.setText("Nhập hàng ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel2.setText("Quản lý hàng hóa");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -281,6 +299,8 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(269, 269, 269)
                 .addComponent(jButton1)
                 .addGap(32, 32, 32))
         );
@@ -293,7 +313,9 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -406,7 +428,7 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             this.setVisible(false);
-            new QuanLyHangHoa1().setVisible(true);
+            new QuanLyHangHoa_nhapHang().setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(QuanLyHangHoa.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -447,10 +469,24 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        // TODO add your handling code here:
+
         this.setVisible(false);
         new TrangChu().setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void txt_giahhKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_giahhKeyTyped
+        // TODO add your handling code here:
+                if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_giahhKeyTyped
+
+    private void txt_soluonghhKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_soluonghhKeyTyped
+        // TODO add your handling code here:
+                if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txt_soluonghhKeyTyped
 
     private void showList() {
 
@@ -516,6 +552,7 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

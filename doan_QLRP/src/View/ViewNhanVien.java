@@ -197,7 +197,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
+                .addGap(49, 49, 49)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -602,13 +602,13 @@ public class ViewNhanVien extends javax.swing.JFrame {
         if(manv.getText().equals("") == true || tbl.getSelectedRow() == -1) return;
         int i = NhanVienDAO.delete(cons, listItem.get(tbl.getSelectedRow()));
         if(i == -1){
-            JOptionPane.showMessageDialog(rootPane, "loi co so du lieu");
+            JOptionPane.showMessageDialog(rootPane, "Loi co so du lieu");
         }
         else if( i == 0){
-            JOptionPane.showMessageDialog(rootPane, "khong tim duoc nhan vien");
+            JOptionPane.showMessageDialog(rootPane, "Khong tim duoc nhan vien");
         }
         else{
-            JOptionPane.showMessageDialog(rootPane, "da xoa thanh cong");
+            JOptionPane.showMessageDialog(rootPane, "Da xoa thanh cong");
             TaiKhoan tk = null;
             NhanVien nv = listItem.get(tbl.getSelectedRow());
             for(TaiKhoan j : listtk){

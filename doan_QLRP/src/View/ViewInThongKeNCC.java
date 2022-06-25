@@ -227,7 +227,7 @@ public class ViewInThongKeNCC extends javax.swing.JFrame {
         //tao file pdf
 
         Document doc = new Document();
-        String filename = "bao cao san pham theo nam";
+        String filename = "bao cao ton san pham";
         try {
             PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream("src/Report/" + filename + ".pdf"));
 
@@ -255,7 +255,7 @@ public class ViewInThongKeNCC extends javax.swing.JFrame {
 //            logo.scaleAbsolute(50, 50);
 //            doc.add(logo);
 
-            Paragraph tenTrangTrai = new Paragraph("FRESH FOOD", fTieuDe1);
+            Paragraph tenTrangTrai = new Paragraph("RẠP CHIẾU PHIM CŨ", fTieuDe1);
             tenTrangTrai.setIndentationLeft(180);
             doc.add(tenTrangTrai);
 
@@ -267,7 +267,7 @@ public class ViewInThongKeNCC extends javax.swing.JFrame {
             hotline.setIndentationLeft(180);
             doc.add(hotline);
 
-            Paragraph tieuDe = new Paragraph("BÁO CÁO TOP " +  " SẢN PHẨM BÁN CHẠY TRONG" + " NĂM " , fTieuDe1);
+            Paragraph tieuDe = new Paragraph("BÁO CÁO TỒN HÀNG HÓA" , fTieuDe1);
             tieuDe.setAlignment(1);
             tieuDe.setSpacingBefore(40);
             tieuDe.setSpacingAfter(20);
@@ -278,20 +278,20 @@ public class ViewInThongKeNCC extends javax.swing.JFrame {
             danhSachKH.setSpacingAfter(10);
             doc.add(danhSachKH);
 
-            PdfPTable tableKH = new PdfPTable(4);
+            PdfPTable tableKH = new PdfPTable(2);
             tableKH.setWidthPercentage(80);
             tableKH.setSpacingBefore(5);
             tableKH.setSpacingAfter(5);
-            float[] tableKH_columnwidth = { 150, 150, 150, 150};
+            float[] tableKH_columnwidth = { 150, 150};
             tableKH.setWidths(tableKH_columnwidth);
             //chen cot
            
 
-            PdfPCell makh = new PdfPCell(new Paragraph("Mã sản phẩm", fTieuDe4));
-            makh.setBorderColor(BaseColor.BLACK);
-            makh.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-            makh.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-            tableKH.addCell(makh);
+//            PdfPCell makh = new PdfPCell(new Paragraph("Mã sản phẩm", fTieuDe4));
+//            makh.setBorderColor(BaseColor.BLACK);
+//            makh.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+//            makh.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+//            tableKH.addCell(makh);
 
             PdfPCell tenkh = new PdfPCell(new Paragraph("Tên sản phẩm", fTieuDe4));
             tenkh.setBorderColor(BaseColor.BLACK);
@@ -299,13 +299,13 @@ public class ViewInThongKeNCC extends javax.swing.JFrame {
             tenkh.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
             tableKH.addCell(tenkh);
 
-            PdfPCell sdt = new PdfPCell(new Paragraph("Loại sản phẩm", fTieuDe4));
-            sdt.setBorderColor(BaseColor.BLACK);
-            sdt.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-            sdt.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-            tableKH.addCell(sdt);
+//            PdfPCell sdt = new PdfPCell(new Paragraph("Loại sản phẩm", fTieuDe4));
+//            sdt.setBorderColor(BaseColor.BLACK);
+//            sdt.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+//            sdt.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+//            tableKH.addCell(sdt);
 
-            PdfPCell tongtien = new PdfPCell(new Paragraph("Tổng số lượng đã bán", fTieuDe4));
+            PdfPCell tongtien = new PdfPCell(new Paragraph("Tổng số lượng", fTieuDe4));
             tongtien.setBorderColor(BaseColor.BLACK);
             tongtien.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
             tongtien.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
@@ -334,18 +334,18 @@ public class ViewInThongKeNCC extends javax.swing.JFrame {
                 tenkh_text.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
                 tableKH.addCell(tenkh_text);
 
-                PdfPCell sdt_text = new PdfPCell(new Paragraph(String.valueOf(hangHoa.getDon_gia()), fNoiDung3));
-                sdt_text.setBorderColor(BaseColor.BLACK);
-                sdt_text.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-                sdt_text.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-                tableKH.addCell(sdt_text);
-
-                PdfPCell tongtien_text = new PdfPCell(new Paragraph(String.valueOf(hangHoa.getDon_gia()*hangHoa.getTong_so_luong()), fNoiDung3));
-                tongtien_text.setBorderColor(BaseColor.BLACK);
-                tongtien_text.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-                tongtien_text.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-                tableKH.addCell(tongtien_text);
-                Stt++;
+//                PdfPCell sdt_text = new PdfPCell(new Paragraph(String.valueOf(hangHoa.getDon_gia()), fNoiDung3));
+//                sdt_text.setBorderColor(BaseColor.BLACK);
+//                sdt_text.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+//                sdt_text.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+//                tableKH.addCell(sdt_text);
+//
+//                PdfPCell tongtien_text = new PdfPCell(new Paragraph(String.valueOf(hangHoa.getDon_gia()*hangHoa.getTong_so_luong()), fNoiDung3));
+//                tongtien_text.setBorderColor(BaseColor.BLACK);
+//                tongtien_text.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+//                tongtien_text.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+//                tableKH.addCell(tongtien_text);
+//                Stt++;
             }
             Paragraph bieudo = new Paragraph("Biểu đồ: ", fTieuDe3);
             bieudo.setSpacingBefore(10);

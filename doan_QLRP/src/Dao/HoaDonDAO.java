@@ -84,13 +84,14 @@ public class HoaDonDAO {
         }
         return null;
     }
-    public static List<HoaDon> getByNgayHoaDon(Connection cons, int ngay){
+    public static List<HoaDon> getByNgayHoaDon(Connection cons, int nam, int thang){
         if(cons == null) return null;
         try{
             List<HoaDon> list = new ArrayList<HoaDon>();
-            String sql = "select * from hoa_don where ngay_hoa_don = ?";
+            String sql = "select * from hoa_don where YEAR(ngay_hoa_don) = ? AND MONTH(ngay_hoa_don) = ?";
             PreparedStatement st = cons.prepareStatement(sql);
-            st.setInt(1, ngay);
+            st.setString(1, String.valueOf(nam));
+            st.setString(2, String.valueOf(thang));
             ResultSet rs = st.executeQuery();
             while(rs.next()){
                 list.add(new HoaDon(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getLong(4), rs.getString(5)));

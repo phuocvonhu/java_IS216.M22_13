@@ -149,9 +149,11 @@ public class DangNhap extends javax.swing.JFrame {
             if (DangNhapDao.login(tdn, mk) == 2) {
                 JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
                 this.setVisible(false);
+                new TrangChu().setVisible(true);
             } else if (DangNhapDao.login(tdn, mk) == 3) {
                 JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
                 this.setVisible(false);
+                new TrangChu().setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu đăng nhập sai");
 

@@ -41,7 +41,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
     SimpleDateFormat sdf;
     public ViewNhanVien() {
         initComponents();
-        sdf = new SimpleDateFormat("yyyy/MM/dd");
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
         ImageIcon imgi = new ImageIcon("C:\\Users\\minht\\Documents\\NetBeansProjects\\doan_QLRP\\src\\resources\\home.png");
         Image img = imgi.getImage();
         Image newimg = img.getScaledInstance(home.getWidth(), home.getHeight(), java.awt.Image.SCALE_SMOOTH);
@@ -713,7 +713,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
         if(ngayvl.getDate().compareTo(ngays.getDate()) <= 0) return; 
         NhanVien nv;
         String gt = (nam.isSelected() == true)?"Nam":"Nu";
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try{
             String ns = sdf.format(ngays.getDate());
             String nvl = sdf.format(ngayvl.getDate());

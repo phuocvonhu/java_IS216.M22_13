@@ -260,6 +260,11 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/home.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -440,6 +445,12 @@ public class QuanLyHangHoa extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new TrangChu().setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     private void showList() {
 

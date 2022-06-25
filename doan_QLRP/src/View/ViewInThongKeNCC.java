@@ -3,15 +3,57 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
-
+import java.util.Date;
 import Model.HangHoa;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.*;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.BasicStroke;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.text.Element;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+//import org.netbeans.lib.awtextra.AbsoluteLayout;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
+import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
-
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
+import org.jfree.chart.ui.TextAnchor;
 /**
  *
  * @author phuocvu
@@ -177,4 +219,191 @@ public class ViewInThongKeNCC extends javax.swing.JFrame {
             modelTable.addRow(row);
         }
     }
-}
+    
+    void inbaocao(List<HangHoa> hangHoaList){
+        
+
+        
+        //tao file pdf
+
+        Document doc = new Document();
+        String filename = "bao cao san pham theo nam";
+        try {
+            PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream("src/Report/" + filename + ".pdf"));
+
+            doc.open();
+            File fileFontTieuDe = new File("src/fonts/vuArialBold.ttf");
+            BaseFont bfTieuDe = BaseFont.createFont(fileFontTieuDe.getAbsolutePath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font fTieuDe1 = new Font(bfTieuDe, 16);
+            //fTieuDe1.setColor(BaseColor.GREEN);
+ 
+            Font fTieuDe2 = new Font(bfTieuDe, 13);
+            // fTieuDe2.setColor(BaseColor.GREEN);
+
+            Font fTieuDe3 = new Font(bfTieuDe, 13);
+            Font fTieuDe4 = new Font(bfTieuDe, 12);
+
+            File fileFontNoiDung = new File("src/fonts/vuArial.ttf");
+            BaseFont bfNoiDung = BaseFont.createFont(fileFontTieuDe.getAbsolutePath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            Font fNoiDung1 = new Font(bfNoiDung, 13);
+            Font fNoiDung2 = new Font(bfNoiDung, 12);
+            Font fNoiDung3 = new Font(bfNoiDung, 11);
+
+            //chèn logo anh
+//            Image logo = Image.getInstance("src/Resources/agriculture.png");
+//            logo.setAbsolutePosition(150, 750);
+//            logo.scaleAbsolute(50, 50);
+//            doc.add(logo);
+
+            Paragraph tenTrangTrai = new Paragraph("FRESH FOOD", fTieuDe1);
+            tenTrangTrai.setIndentationLeft(180);
+            doc.add(tenTrangTrai);
+
+            Paragraph diaChiTrangTrai = new Paragraph("Địa chỉ: Linh Trung, khu phố 6, TP.Thủ Đức, TP.HCM", fNoiDung2);
+            diaChiTrangTrai.setIndentationLeft(180);
+            doc.add(diaChiTrangTrai);
+
+            Paragraph hotline = new Paragraph("Hotline: 086.8247.806", fNoiDung2);
+            hotline.setIndentationLeft(180);
+            doc.add(hotline);
+
+            Paragraph tieuDe = new Paragraph("BÁO CÁO TOP " +  " SẢN PHẨM BÁN CHẠY TRONG" + " NĂM " , fTieuDe1);
+            tieuDe.setAlignment(1);
+            tieuDe.setSpacingBefore(40);
+            tieuDe.setSpacingAfter(20);
+            doc.add(tieuDe);
+
+            Paragraph danhSachKH = new Paragraph("Thông tin các sản phẩm: ", fTieuDe3);
+            danhSachKH.setSpacingBefore(10);
+            danhSachKH.setSpacingAfter(10);
+            doc.add(danhSachKH);
+
+            PdfPTable tableKH = new PdfPTable(4);
+            tableKH.setWidthPercentage(80);
+            tableKH.setSpacingBefore(5);
+            tableKH.setSpacingAfter(5);
+            float[] tableKH_columnwidth = { 150, 150, 150, 150};
+            tableKH.setWidths(tableKH_columnwidth);
+            //chen cot
+           
+
+            PdfPCell makh = new PdfPCell(new Paragraph("Mã sản phẩm", fTieuDe4));
+            makh.setBorderColor(BaseColor.BLACK);
+            makh.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            makh.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            tableKH.addCell(makh);
+
+            PdfPCell tenkh = new PdfPCell(new Paragraph("Tên sản phẩm", fTieuDe4));
+            tenkh.setBorderColor(BaseColor.BLACK);
+            tenkh.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            tenkh.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            tableKH.addCell(tenkh);
+
+            PdfPCell sdt = new PdfPCell(new Paragraph("Loại sản phẩm", fTieuDe4));
+            sdt.setBorderColor(BaseColor.BLACK);
+            sdt.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            sdt.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            tableKH.addCell(sdt);
+
+            PdfPCell tongtien = new PdfPCell(new Paragraph("Tổng số lượng đã bán", fTieuDe4));
+            tongtien.setBorderColor(BaseColor.BLACK);
+            tongtien.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            tongtien.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            tableKH.addCell(tongtien);
+
+            int Stt = 1;
+            int tongTien = 0;
+
+            for (HangHoa hangHoa : hangHoaList)  {
+//                PdfPCell stt_text = new PdfPCell(new Paragraph(String.valueOf(Stt), fNoiDung3));
+//                stt_text.setBorderColor(BaseColor.BLACK);
+//                stt_text.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+//                stt_text.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+//                stt_text.setMinimumHeight(30);
+//                tableKH.addCell(stt_text);
+
+                PdfPCell makh_text = new PdfPCell(new Paragraph(hangHoa.getTen_hang_hoa(), fNoiDung3));
+                makh_text.setBorderColor(BaseColor.BLACK);
+                makh_text.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                makh_text.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                tableKH.addCell(makh_text);
+
+                PdfPCell tenkh_text = new PdfPCell(new Paragraph(String.valueOf(hangHoa.getTong_so_luong()), fNoiDung3));
+                tenkh_text.setBorderColor(BaseColor.BLACK);
+                tenkh_text.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                tenkh_text.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                tableKH.addCell(tenkh_text);
+
+                PdfPCell sdt_text = new PdfPCell(new Paragraph(String.valueOf(hangHoa.getDon_gia()), fNoiDung3));
+                sdt_text.setBorderColor(BaseColor.BLACK);
+                sdt_text.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                sdt_text.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                tableKH.addCell(sdt_text);
+
+                PdfPCell tongtien_text = new PdfPCell(new Paragraph(String.valueOf(hangHoa.getDon_gia()*hangHoa.getTong_so_luong()), fNoiDung3));
+                tongtien_text.setBorderColor(BaseColor.BLACK);
+                tongtien_text.setHorizontalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                tongtien_text.setVerticalAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+                tableKH.addCell(tongtien_text);
+                Stt++;
+            }
+            Paragraph bieudo = new Paragraph("Biểu đồ: ", fTieuDe3);
+            bieudo.setSpacingBefore(10);
+            bieudo.setSpacingAfter(5);
+            BufferedImage bf = null;
+
+            
+
+      
+            DefaultPieDataset dataset = new DefaultPieDataset();
+            if (hangHoaList != null) {
+                for (HangHoa item : hangHoaList) {
+                    dataset.setValue(item.getTen_hang_hoa(), item.getTong_so_luong());
+                }
+            }
+
+            JFreeChart chart = ChartFactory.createPieChart("", dataset, false, true, false);
+            chart.getTitle().setFont(new java.awt.Font("Tahoma", java.awt.Font.BOLD, 120));
+            PiePlot piePlot = (PiePlot) chart.getPlot();
+            piePlot.setShadowPaint(null);
+            piePlot.setBackgroundPaint(Color.white);
+            piePlot.setOutlinePaint(null);
+            piePlot.setLabelBackgroundPaint(Color.white);
+            piePlot.setLabelOutlinePaint(Color.white);
+            piePlot.setLabelShadowPaint(null);
+            piePlot.setLabelFont(new java.awt.Font("Tahoma", java.awt.Font.ITALIC, 10));
+            piePlot.setLabelLinkStroke(new BasicStroke(2.0f));
+            PieSectionLabelGenerator lb = new StandardPieSectionLabelGenerator("{0} - {2}");
+            piePlot.setLabelGenerator(lb);
+
+            bf = chart.createBufferedImage(450, 350);
+            Image img = Image.getInstance(writer, bf, 1.0f);
+            img.setAlignment(1);
+            doc.add(tableKH);
+            doc.add(bieudo);
+            doc.add(img);
+
+            doc.close();
+            writer.close();
+
+
+        } catch (Exception e) {
+        }
+        try {
+            File file = new File("src/Report/" + filename + ".pdf");
+            if (!Desktop.isDesktopSupported()) {
+                System.out.println("no");
+                return;
+            }
+
+            Desktop desk = Desktop.getDesktop();
+            if (file.exists()) {
+                desk.open(file);
+            }
+        } catch (Exception e) {
+        }
+    }
+    }
+    
+    
+

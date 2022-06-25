@@ -79,7 +79,7 @@ public class ViewPhim extends javax.swing.JFrame {
             }
             
         });
-        cons = DBConnect.getConnectionMySql("root", "root");
+        cons = DBConnect.getConnectionMySql("root", "");
         if(cons == null){
             JOptionPane.showMessageDialog(rootPane, "khong the ket noi co so du lieu");
             return;
@@ -178,18 +178,19 @@ public class ViewPhim extends javax.swing.JFrame {
 
         home.setBackground(new java.awt.Color(127, 127, 127));
         home.setForeground(new java.awt.Color(127, 127, 127));
+        home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/home.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(home)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+            .addComponent(home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -455,6 +456,11 @@ public class ViewPhim extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbl);
 
         search.setToolTipText("");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -670,6 +676,10 @@ public class ViewPhim extends javax.swing.JFrame {
         }
         else if(i == 1) JOptionPane.showMessageDialog(rootPane, "Sua phim them thanh cong");
     }//GEN-LAST:event_DongyActionPerformed
+
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchActionPerformed
 
     /**
      * @param args the command line arguments

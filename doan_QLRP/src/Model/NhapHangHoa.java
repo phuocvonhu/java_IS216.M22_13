@@ -15,6 +15,8 @@ public class NhapHangHoa {
     private int so_luong;
     private long don_gia;
     private String ngay_nhap;
+    private String ten_ncc;
+    private String ten_hang_hoa;
 
     public NhapHangHoa(int ma_don, int ma_ncc, int ma_hang_hoa, int so_luong, long don_gia, String ngay_nhap) {
         this.ma_don = ma_don;
@@ -32,6 +34,34 @@ public class NhapHangHoa {
         this.don_gia = don_gia;
         this.ngay_nhap = ngay_nhap;
     }
+
+    public NhapHangHoa(int ma_don, int ma_ncc, int ma_hang_hoa, int so_luong, long don_gia, String ngay_nhap, String ten_ncc, String ten_hang_hoa) {
+        this.ma_don = ma_don;
+        this.ma_ncc = ma_ncc;
+        this.ma_hang_hoa = ma_hang_hoa;
+        this.so_luong = so_luong;
+        this.don_gia = don_gia;
+        this.ngay_nhap = ngay_nhap;
+        this.ten_ncc = ten_ncc;
+        this.ten_hang_hoa = ten_hang_hoa;
+    }
+
+    public String getTen_ncc() {
+        return ten_ncc;
+    }
+
+    public void setTen_ncc(String ten_ncc) {
+        this.ten_ncc = ten_ncc;
+    }
+
+    public String getTen_hang_hoa() {
+        return ten_hang_hoa;
+    }
+
+    public void setTen_hang_hoa(String ten_hang_hoa) {
+        this.ten_hang_hoa = ten_hang_hoa;
+    }
+    
 
     public NhapHangHoa() {
     }

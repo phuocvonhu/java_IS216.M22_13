@@ -18,10 +18,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import View.ClassTableModel;
 import Model.*;
-import Dao.NhanVienDAO;
 import java.sql.*;
 import Dao.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
@@ -38,9 +38,12 @@ public class ViewPhim extends javax.swing.JFrame {
     TableRowSorter<TableModel> rowSorter = null;
     Connection cons = null;
     SimpleDateFormat sdf;
+    SimpleDateFormat sdfd;
+    DefaultTableModel dtm;
     public ViewPhim() {
         initComponents();
         sdf = new SimpleDateFormat("yyyy/MM/dd");
+        sdfd = new SimpleDateFormat("yyyy-MM-dd");
         ImageIcon imgi = new ImageIcon("C:\\Users\\minht\\Documents\\NetBeansProjects\\doan_QLRP\\src\\resources\\home.png");
         Image img = imgi.getImage();
         Image newimg = img.getScaledInstance(home.getWidth(), home.getHeight(), java.awt.Image.SCALE_SMOOTH);
@@ -87,7 +90,7 @@ public class ViewPhim extends javax.swing.JFrame {
         listItem = PhimDAO.getAll(cons);
         listpt = PhimThemDAO.getAll(cons);
         String[] str = {"ma phim", "ten phim" , "loai phim", "tac gia", "quoc gia", "thoi luong", "nam phat hanh"};
-        DefaultTableModel dtm = ClassTableModel.setTablePhim(listItem, str);
+        dtm = ClassTableModel.setTablePhim(listItem, str);
         rowSorter = new TableRowSorter<>(dtm);
         tbl.setModel(dtm);
         tbl.setRowSorter(rowSorter);
@@ -146,7 +149,6 @@ public class ViewPhim extends javax.swing.JFrame {
         map = new javax.swing.JTextField();
         quocg = new javax.swing.JTextField();
         thoil = new javax.swing.JTextField();
-        namsx = new javax.swing.JTextField();
         Dongy = new javax.swing.JButton();
         Reset = new javax.swing.JButton();
         Them = new javax.swing.JButton();
@@ -156,6 +158,7 @@ public class ViewPhim extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         mota = new javax.swing.JTextArea();
+        namsx = new com.toedter.calendar.JDateChooser();
         jPanel6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -178,19 +181,18 @@ public class ViewPhim extends javax.swing.JFrame {
 
         home.setBackground(new java.awt.Color(127, 127, 127));
         home.setForeground(new java.awt.Color(127, 127, 127));
-        home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/home.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(home)
+                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -331,7 +333,7 @@ public class ViewPhim extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(28, 28, 28)
@@ -361,20 +363,23 @@ public class ViewPhim extends javax.swing.JFrame {
                                     .addComponent(jLabel16)
                                     .addComponent(quocg, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(namsx, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel6)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(thoil, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                             .addComponent(tenp)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(Reset, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(Xoa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel8)
                             .addComponent(daod)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(namsx, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel6)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGap(25, 25, 25)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(Reset, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(Xoa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(16, 16, 16))
         );
         jPanel5Layout.setVerticalGroup(
@@ -411,13 +416,13 @@ public class ViewPhim extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(thoil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(namsx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel8)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(namsx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Dongy, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -456,11 +461,6 @@ public class ViewPhim extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbl);
 
         search.setToolTipText("");
-        search.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -530,6 +530,7 @@ public class ViewPhim extends javax.swing.JFrame {
 
     private void tblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMouseClicked
         PhimThem pt = null;
+        System.out.println(tbl.getSelectedRow());
         Phim p = listItem.get(tbl.getSelectedRow());
         for(PhimThem i : listpt){
             if(i.getMa_phim() == p.getMa_phim()){
@@ -541,7 +542,12 @@ public class ViewPhim extends javax.swing.JFrame {
         tenp.setText(p.getTen_phim());
         quocg.setText(p.getQuoc_gia());
         thoil.setText(String.valueOf(p.getThoi_luong()));
-        namsx.setText(p.getNam_phat_hanh());
+        try{
+            namsx.setDate(sdfd.parse(p.getNam_phat_hanh()));
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(rootPane, "nam san xuat sai format");
+        }
         thel.setText(p.getLoai_phim());
         daod.setText(p.getTac_gia());
         if(pt == null) return;
@@ -553,7 +559,8 @@ public class ViewPhim extends javax.swing.JFrame {
         tenp.setText("");
         quocg.setText("");
         thoil.setText("");
-        namsx.setText("");
+        namsx.cleanup();
+        namsx.setDate(Date.valueOf(LocalDate.now()));
         mota.setText("");
         daod.setText("");
         thel.setText("");
@@ -561,7 +568,7 @@ public class ViewPhim extends javax.swing.JFrame {
 
     private void XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XoaActionPerformed
         if(map.getText().equals("") == true) return;
-        int i = PhimDAO.delete(cons, listItem.get(tbl.getSelectedRow()));
+        int i = PhimThemDAO.delete(cons, listpt.get(tbl.getSelectedRow()));
         if(i == -1){
             JOptionPane.showMessageDialog(rootPane, "loi co so du lieu");
         }
@@ -569,7 +576,30 @@ public class ViewPhim extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "khong tim duoc phim");
         }
         else{
-            JOptionPane.showMessageDialog(rootPane, "da xoa thanh cong");
+            listpt.remove(tbl.getSelectedRow());
+            int j = PhimDAO.delete(cons, listItem.get(tbl.getSelectedRow()));
+            if(j == -1){
+                JOptionPane.showMessageDialog(rootPane, "loi co so du lieu");
+            }
+            else if (i == 0){
+                JOptionPane.showMessageDialog(rootPane, "khong tim duoc phim");
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "da xoa thanh cong");
+                listItem.remove(tbl.getSelectedRow());
+                dtm.removeRow(tbl.getSelectedRow()); 
+                map.setText("");
+                tenp.setText("");
+                quocg.setText("");
+                thoil.setText("");
+                namsx.cleanup();
+                namsx.setDate(Date.valueOf(LocalDate.now()));
+                mota.setText("");
+                daod.setText("");
+                thel.setText("");
+            }
+                 
+            
         }
     }//GEN-LAST:event_XoaActionPerformed
 
@@ -577,7 +607,7 @@ public class ViewPhim extends javax.swing.JFrame {
         if(tenp.getText().equals("") == true) return;
         if(quocg.getText().equals("") == true) return;
         if(thoil.getText().equals("") == true) return;
-        if(namsx.getText().equals("") == true) return;
+        if(namsx.getDate() == null) return;
         if(daod.getText().equals("")) return;
         if(mota.getText().equals("")) return;
         if(thel.getText().equals("")) return;
@@ -593,8 +623,8 @@ public class ViewPhim extends javax.swing.JFrame {
             return;
         }
         Phim p;
-        if(namsx.getText().equals("") == true){
-            p = new Phim(tenp.getText(),thel.getText(), daod.getText(), quocg.getText(), Integer.parseInt(thoil.getText()), namsx.getText());
+        if(map.getText().equals("") == true){
+            p = new Phim(tenp.getText(),thel.getText(), daod.getText(), quocg.getText(), Integer.parseInt(thoil.getText()), sdfd.format(namsx.getDate()));
         }
         else{
             try{ 
@@ -608,7 +638,7 @@ public class ViewPhim extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "ma phim la so nguyen duong");
                 return;
             }
-            p = new Phim(Integer.parseInt(map.getText()),tenp.getText(),thel.getText(), daod.getText(), quocg.getText(), Integer.parseInt(thoil.getText()), namsx.getText());
+            p = new Phim(Integer.parseInt(map.getText()),tenp.getText(),thel.getText(), daod.getText(), quocg.getText(), Integer.parseInt(thoil.getText()), sdfd.format(namsx.getDate()));
         }
         int i = PhimDAO.insert(cons, p);
         if(i == 0 || i == -1) {
@@ -617,7 +647,7 @@ public class ViewPhim extends javax.swing.JFrame {
         }
         Phim phi = PhimDAO.getByTenPhim(cons, tenp.getText());
         if(phi == null){
-            JOptionPane.showMessageDialog(rootPane, "them phim. Khong lay duoc phim");
+            JOptionPane.showMessageDialog(rootPane, "them phim that bai. Khong lay duoc phim");
             return;
         }
         PhimThem pt;
@@ -631,12 +661,17 @@ public class ViewPhim extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(rootPane, "da them thanh cong");
+            //{"ma phim", "ten phim" , "loai phim", "tac gia", "quoc gia", "thoi luong", "nam phat hanh"};
+            dtm.addRow(new Object[]{phi.getMa_phim(), phi.getTen_phim(), phi.getLoai_phim(), phi.getTac_gia(), phi.getQuoc_gia(), phi.getThoi_luong(), phi.getNam_phat_hanh()});
+            listItem.add(phi);
+            listpt.add(pt);
+            map.setText(String.valueOf(phi.getMa_phim()));
         }
     }//GEN-LAST:event_ThemActionPerformed
 
     private void DongyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DongyActionPerformed
         if(map.getText().equals("")) return;
-        if(namsx.getText().equals("")) return;
+        if(namsx.getDate() == null) return;
         if(tenp.getText().equals("") == true) return;
         if(quocg.getText().equals("") == true) return;
         if(thoil.getText().equals("") == true) return;
@@ -644,7 +679,7 @@ public class ViewPhim extends javax.swing.JFrame {
         if(thel.getText().equals("")) return;
         Phim p;
         try{
-            p = new Phim(Integer.parseInt(map.getText()),tenp.getText(),thel.getText(), daod.getText(), quocg.getText(), Integer.parseInt(thoil.getText()), namsx.getText());
+            p = new Phim(Integer.parseInt(map.getText()),tenp.getText(),thel.getText(), daod.getText(), quocg.getText(), Integer.parseInt(thoil.getText()), sdfd.format(namsx.getDate()));
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(rootPane, "ma nhan vien hoac ma tai khoan la so");
@@ -659,11 +694,19 @@ public class ViewPhim extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(rootPane, "da sua thanh cong");
+            //{"ma phim", "ten phim" , "loai phim", "tac gia", "quoc gia", "thoi luong", "nam phat hanh"};
+            tbl.setValueAt(p.getMa_phim(), tbl.getSelectedRow(), 0);
+            tbl.setValueAt(p.getTen_phim(), tbl.getSelectedRow(), 1);
+            tbl.setValueAt(p.getLoai_phim(), tbl.getSelectedRow(), 2);
+            tbl.setValueAt(p.getTac_gia(), tbl.getSelectedRow(), 3);
+            tbl.setValueAt(p.getQuoc_gia(), tbl.getSelectedRow(), 4);
+            tbl.setValueAt(p.getThoi_luong(), tbl.getSelectedRow(), 5);
+            tbl.setValueAt(p.getNam_phat_hanh(), tbl.getSelectedRow(), 6);
         }
         
         PhimThem pt;
         try{
-            pt = new PhimThem(Integer.parseInt(namsx.getText()),mota.getText(),null);
+            pt = new PhimThem(Integer.parseInt(map.getText()),mota.getText(),null);
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(rootPane, "loi cap nhat phim them la so");
@@ -676,10 +719,6 @@ public class ViewPhim extends javax.swing.JFrame {
         }
         else if(i == 1) JOptionPane.showMessageDialog(rootPane, "Sua phim them thanh cong");
     }//GEN-LAST:event_DongyActionPerformed
-
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -748,7 +787,7 @@ public class ViewPhim extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField map;
     private javax.swing.JTextArea mota;
-    private javax.swing.JTextField namsx;
+    private com.toedter.calendar.JDateChooser namsx;
     private javax.swing.JTextField quocg;
     private javax.swing.JTextField search;
     private javax.swing.JTable tbl;

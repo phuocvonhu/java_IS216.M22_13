@@ -567,7 +567,12 @@ public class ViewNhanVien extends javax.swing.JFrame {
         email.setText(nv.getEmail());
         if(tk == null) return;
         matk.setText(String.valueOf(tk.getMa_tai_khoan()));
-        loaitk.setSelectedIndex(4-tk.getMa_loai_tai_khoan());
+    //    loaitk.setSelectedIndex(4-tk.getMa_loai_tai_khoan());
+        if(tk.getMa_loai_tai_khoan()==2){
+           loaitk.setSelectedIndex(1); 
+        }else{
+            loaitk.setSelectedIndex(2); 
+        }
         tentk.setText(tk.getTen_dang_nhap());
         matkh.setText(tk.getMat_khau());
     }//GEN-LAST:event_tblMouseClicked
@@ -583,7 +588,7 @@ public class ViewNhanVien extends javax.swing.JFrame {
         matk.setText("");
         loaitk.setSelectedIndex(0);
         tentk.setText("");
-        matkh.setText("");
+        matkh.setText("");  
     }//GEN-LAST:event_ResetActionPerformed
 
     private void XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XoaActionPerformed

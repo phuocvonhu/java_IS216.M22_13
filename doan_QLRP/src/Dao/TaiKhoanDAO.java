@@ -72,6 +72,7 @@ public class TaiKhoanDAO {
                 ps.setString(1, t.getTen_dang_nhap());
                 ps.setString(2, t.getMat_khau());
                 ps.setInt(3, t.getMa_loai_tai_khoan());
+                System.out.println(t.getMa_loai_tai_khoan());
                 return ps.executeUpdate();            
             }
             else

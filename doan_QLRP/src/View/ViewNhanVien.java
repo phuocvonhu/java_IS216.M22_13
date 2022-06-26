@@ -638,12 +638,18 @@ public class ViewNhanVien extends javax.swing.JFrame {
         if(ngayvl.getDate() == null) return;
         if(ngayvl.getDate().compareTo(ngays.getDate()) <= 0) return;
         TaiKhoan tk;
+        Integer loaitk2;
+                if(loaitk.getSelectedIndex()==1){
+                    loaitk2 = 2;
+                }else{
+                    loaitk2 = 3;
+                }
         if(matk.getText().equals("") == true){
-            tk = new TaiKhoan(tentk.getText(), String.valueOf(matkh.getPassword()),loaitk.getSelectedIndex() );
+            tk = new TaiKhoan(tentk.getText(), String.valueOf(matkh.getPassword()),loaitk2 );
         }
         else{
             try{
-                tk = new TaiKhoan(Integer.parseInt(matk.getText()),tentk.getText(), String.valueOf(matkh.getPassword()),loaitk.getSelectedIndex() );
+                tk = new TaiKhoan(Integer.parseInt(matk.getText()),tentk.getText(), String.valueOf(matkh.getPassword()),loaitk2 );
             }
             catch(Exception ex){
                 JOptionPane.showMessageDialog(rootPane, "ma tai khoan la so");
